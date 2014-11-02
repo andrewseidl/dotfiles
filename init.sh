@@ -7,7 +7,11 @@ if hash git 2>/dev/null ; then
 
     homeshick clone andrewseidl/dotfiles
 
+    # install Vundle for vim
     [[ ! -e $HOME/.vim/bundle/Vundle.vim ]] && git clone https://github.com/gmarik/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+
+    # tell Vundle to install plugins
+    vim +PluginInstall +qall
 
 else
     echo "Please install Git and then rerun."
