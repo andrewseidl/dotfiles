@@ -55,7 +55,6 @@ set showcmd
 set showfulltag
 set showmatch
 set textwidth=80
-set virtualedit=all
 set wildmenu
 
 " these may get overridden by tpope/vim-sleuth
