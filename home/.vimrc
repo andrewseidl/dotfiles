@@ -54,7 +54,7 @@ set scrolloff=5
 set showcmd
 set showfulltag
 set showmatch
-set textwidth=80
+" set textwidth=80
 set wildmenu
 
 " these may get overridden by tpope/vim-sleuth
