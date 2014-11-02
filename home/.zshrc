@@ -16,16 +16,9 @@ zle -N self-insert url-quote-magic
 #allow tab completion in the middle of a word
 setopt COMPLETE_IN_WORD
 
-## keep background processes at full speed
-#setopt NOBGNICE
-## restart running processes on exit
-#setopt HUP
-
 ## history
 setopt APPEND_HISTORY
-## for sharing history between zsh processes
 setopt INC_APPEND_HISTORY
-#setopt SHARE_HISTORY
 
 HISTSIZE=20000
 HISTFILE=~/.history
@@ -43,7 +36,6 @@ LISTMAX=0
 autoload -U colors
 colors
 
-
 # edit command lines
 autoload edit-command-line
 zle -N edit-command-line
@@ -56,7 +48,7 @@ zstyle ':completion:*' menu select
 
 # increase number of allowed errors as more is entered /grml
 zstyle -e ':completion:*:approximate:*' \
-			max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
+  max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
 
 # ignore completeion for unknown commands /grml
 zstyle ':completion:*:functions' ignored-patterns '_*'
@@ -129,79 +121,13 @@ PS2="$base_prompt$path_prompt %_> $post_prompt"
 PS3="$base_prompt$path_prompt ?# $post_prompt"
 
 
-alias shopt=/bin/false
-alias vi="echo No."
-if [ "`uname`" = 'Darwin' ]
+if [ -f ~/.profile ]
 then
-	alias ls="ls -G"
-    export PATH=$(brew --prefix ruby)/bin:$PATH
-else
-	alias ls="ls --color"
+  source ~/.profile
 fi
-
-if which ruby >/dev/null && which gem >/dev/null; then
-    PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
-fi
-
-if [ -f ~/.bash_profile ]
-then
-	source ~/.bash_profile
-fi
-
-if [ -f /opt/Modules/default/init/zsh ]
-then
-	source /opt/Modules/default/init/zsh
-
-elif [ -f /usr/local/share/modulefiles/cuda/5.5.22 ]
-then
-    module load cuda
-fi
-
-
-export LC_COLLATE="en_US.UTF-8"
-PATH=~/.cabal/bin:$PATH
-
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-PATH=$PATH:$HOME/.gem/ruby/2.0.0/bin
-PATH="/usr/local/heroku/bin:$PATH"
-PATH=/usr/local/bin:$PATH
-
-#PATH=$HOME/.anaconda/bin:$PATH
-
-export PATH
-
-# stolen from https://coderwall.com/p/powgbg
-function ssht(){
-  ssh $* -t 'tmux a || tmux || /bin/zsh || /bin/bash'
-}
 
 
 if [ -f ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
 then
     source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
-
-if [ -f ~/.dir_colors ]
-then
-    if hash dircolors 2>/dev/null; then
-        eval `dircolors ~/.dir_colors`
-    elif hash gdircolors 2>/dev/null; then
-        eval `gdircolors ~/.dir_colors`
-    fi
-fi
-
-
-if [ -f ~/google-cloud-sdk/path.zsh.inc ]
-then
-    # The next line updates PATH for the Google Cloud SDK.
-    source '/home/andrew/google-cloud-sdk/path.zsh.inc'
-
-    # The next line enables bash completion for gcloud.
-    source '/home/andrew/google-cloud-sdk/completion.zsh.inc'
-fi
-
-# added by travis gem
-[ -f /home/andrew/.travis/travis.sh ] && source /home/andrew/.travis/travis.sh
-
-source "$HOME/.homesick/repos/homeshick/homeshick.sh"
-fpath=($HOME/.homesick/repos/homeshick/completions $fpath)
