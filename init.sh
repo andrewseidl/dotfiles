@@ -13,6 +13,8 @@ if hash git 2>/dev/null ; then
     # tell Vundle to install plugins
     vim +PluginInstall +qall
 
+    # install syntax highlighting for zsh
+    [[ ! -e $HOME/.zsh/plugins/zsh-syntax-highlighting ]] && git clone git://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/plugins/zsh-syntax-highlighting
 else
     echo "Please install Git and then rerun."
 fi
