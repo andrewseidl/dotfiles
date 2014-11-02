@@ -1,8 +1,13 @@
+" much of this is stolen from Aaron Bartholomew
+" https://github.com/abartholome2/vim-xtreme
+
 set nocompatible
 
 syntax on
 filetype plugin indent on
 
+
+"" plugins
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -38,6 +43,8 @@ Plugin 'yuyuyu101/vim-cpplint'
 call vundle#end()
 
 
+"" options
+
 set autoindent
 set autoread
 set background=dark
@@ -68,6 +75,16 @@ colorscheme desert
 let g:ycm_confirm_extra_conf = 0
 
 
+"" key bindings
+let mapleader = ","
+
+" clear highlights
+nmap <silent> <leader>/ :nohlsearch<CR>
+
+" up/down by visual line, not actual line
+nnoremap j gj
+nnoremap k gk
+
 " disable arrow keys
 " hard mode some day
 noremap   <Up>      <Nop>
@@ -76,8 +93,38 @@ noremap   <Right>   <Nop>
 noremap   <Left>    <Nop>
 
 
+" plugin options
 
-" tmux compatibility
+"nerdcommenter
+let NERDSpaceDelims=1
+
+"vimya
+let g:vimyaShowLog = 1
+let g:vimyaTailCommand = 'Tail'
+nnoremap <leader>mo :py vimyaOpenLog ()<cr>
+vnoremap <leader>mr :py vimyaRefreshLog ()<cr>
+
+"NERDTree
+map <leader>d :NERDTreeToggle<CR>
+map <leader>e :NERDTreeFind<CR>
+let NERDTreeShowBookmarks=1
+let NERDTreeChDirMode=0
+let NERDTreeQuitOnOpen=0
+let NERDTreeKeepTreeInNewTab=1
+
+"Tagbar
+map <leader>t :TagbarToggle<CR>
+
+"Tabularize
+nmap <leader>a= :Tabularize /=<CR>
+vmap <leader>a= :Tabularize /=<CR>
+nmap <leader>a: :Tabularize /:\zs<CR>
+vmap <leader>a: :Tabularize /:\zs<CR>
+
+
+
+"" tmux compatibility
+
 " stolen from http://www.codeography.com/2013/06/19/navigating-vim-and-tmux-splits.html
 if exists('$TMUX')
   function! TmuxOrSplitSwitch(wincmd, tmuxdir)
