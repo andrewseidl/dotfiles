@@ -1,0 +1,52 @@
+# stolen from: https://github.com/skwp/dotfiles/blob/master/git/gitconfig
+[alias]
+	a  = add
+	chunkyadd = add --patch
+	
+	c  = commit
+	ca = commit -a
+	amend = commit --amend
+
+	co = checkout
+	nb = checkout -b
+
+	cp = cherry-pick -x
+
+	d  = diff
+	dc = diff --cached
+	last = diff HEAD^
+
+	l = log --graph --date=short
+	changes = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status
+	short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
+	simple = log --pretty=format:\" * %s\"
+	shortnocolor = log --pretty=format:\"%h %cr %cn %s\"
+
+	pl = pull
+	ps = push
+
+	rc = rebase --continue
+	rs = rebase --skip
+
+	unstage = reset HEAD
+	uncommit = reset --soft HEAD^
+	mt = mergetool
+
+	ss = stash
+	sl = stash list
+	sa = stash apply
+	sd = stash drop
+
+	st = status
+[color]
+	ui = auto
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore
+[help]
+	autocorrect = 1
+[user]
+	email = dev@aas.io
+	name = Andrew Seidl
+[push]
+	default = simple
