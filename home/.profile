@@ -2,9 +2,9 @@ PATH="/usr/local/heroku/bin:$PATH"
 
 # google cloud
 if [ -f ~/google-cloud-sdk/path.zsh.inc ] ; then
-    source "~/google-cloud-sdk/path.zsh.inc"
+    source "$HOME/google-cloud-sdk/path.zsh.inc"
 
-    source "~/google-cloud-sdk/completion.zsh.inc"
+    source "$HOME/google-cloud-sdk/completion.zsh.inc"
 fi
 
 # added by travis gem
@@ -12,7 +12,7 @@ fi
 
 # homeshick
 if [ -e ~/.homesick ] ; then
-    source "~/.homesick/repos/homeshick/homeshick.sh"
+    source "$HOME/.homesick/repos/homeshick/homeshick.sh"
     fpath=(~/.homesick/repos/homeshick/completions $fpath)
 fi
 

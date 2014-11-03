@@ -17,6 +17,7 @@ Plugin 'gmarik/Vundle.vim'
 
 " original repos on github
 Plugin 'airblade/vim-gitgutter'
+Plugin 'bling/vim-airline'
 Plugin 'elzr/vim-json'
 Plugin 'fugalh/desert.vim'
 Plugin 'godlygeek/tabular'
@@ -76,7 +77,8 @@ let g:ycm_confirm_extra_conf = 0
 
 
 "" key bindings
-let mapleader = ","
+let mapleader = " "
+nmap <space> <leader>
 
 " clear highlights
 nmap <silent> <leader>/ :nohlsearch<CR>
