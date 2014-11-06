@@ -24,6 +24,11 @@ else
     alias ls="ls --color"
 fi
 
+# open
+if hash open 2>/dev/null; then
+    alias open=xdg-open
+fi
+
 # ruby and gems
 if which ruby >/dev/null && which gem >/dev/null; then
     PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
