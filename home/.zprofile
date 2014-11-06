@@ -25,7 +25,7 @@ else
 fi
 
 # open
-if hash open 2>/dev/null; then
+if ! hash open 2>/dev/null; then
     alias open=xdg-open
 fi
 
