@@ -129,6 +129,9 @@ vmap <leader>a= :Tabularize /=<CR>
 nmap <leader>a: :Tabularize /:\zs<CR>
 vmap <leader>a: :Tabularize /:\zs<CR>
 
+"Clang-format
+map <C-I> :pyf /usr/share/clang/clang-format.py<cr>
+imap <C-I> <c-o>:pyf /usr/share/clang/clang-format.py<cr>
 
 
 "" tmux compatibility
