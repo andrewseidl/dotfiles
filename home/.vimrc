@@ -2,6 +2,7 @@
 " https://github.com/abartholome2/vim-xtreme
 
 set nocompatible
+set encoding=utf-8
 
 syntax on
 filetype plugin indent on
@@ -31,6 +32,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'pangloss/vim-javascript'
 Plugin 'rhysd/vim-clang-format'
 Plugin 'rking/ag.vim'
+Plugin 'Rykka/riv.vim'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
@@ -60,6 +62,7 @@ set history=1000
 set hlsearch
 set ignorecase
 set incsearch
+set laststatus=2
 set lazyredraw
 set number
 set scrolloff=5
@@ -106,6 +109,10 @@ map <C-H> <C-W>h<C-W>_
 
 
 " plugin options
+
+"airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
 
 "nerdcommenter
 let NERDSpaceDelims=1
