@@ -26,33 +26,24 @@ Plugin 'gmarik/Vundle.vim'
 " original repos on github
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'elzr/vim-json'
-Plugin 'ervandew/supertab'
 Plugin 'fugalh/desert.vim'
 Plugin 'godlygeek/tabular'
-Plugin 'ivyl/vim-bling'
 Plugin 'kien/ctrlp.vim'
 Plugin 'kurkale6ka/vim-pairs'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'majutsushi/tagbar'
-Plugin 'pangloss/vim-javascript'
 Plugin 'rhysd/vim-clang-format'
 Plugin 'rking/ag.vim'
 Plugin 'Rykka/riv.vim'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-Plugin 'Shougo/unite.vim'
 Plugin 'terryma/vim-expand-region'
-Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-surround'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'yuyuyu101/vim-cpplint'
 
 call vundle#end()
 
@@ -127,12 +118,6 @@ let g:airline_powerline_fonts = 1
 
 "nerdcommenter
 let NERDSpaceDelims=1
-
-"vimya
-let g:vimyaShowLog = 1
-let g:vimyaTailCommand = 'Tail'
-nnoremap <leader>mo :py vimyaOpenLog ()<cr>
-vnoremap <leader>mr :py vimyaRefreshLog ()<cr>
 
 "NERDTree
 map <leader>d :NERDTreeToggle<CR>
