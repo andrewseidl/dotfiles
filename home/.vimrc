@@ -1,5 +1,7 @@
-" much of this is stolen from Aaron Bartholomew
-" https://github.com/abartholome2/vim-xtreme
+" Insiration from:
+" - Aaron Bartholomew: https://github.com/abartholome2/vim-xtreme
+" - Jon Childress: github.com/jonplussed/dotfiles
+" - ryanss: gihub.com/ryanss/vim
 
 set nocompatible
 set encoding=utf-8
@@ -9,6 +11,11 @@ filetype plugin indent on
 
 
 "" plugins
+
+" Auto-install Vundle
+if !isdirectory(expand("~/.vim/bundle/Vundle.vim"))
+  call system("git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim")
+endif
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -49,6 +56,11 @@ Plugin 'yuyuyu101/vim-cpplint'
 
 call vundle#end()
 
+" Auto-install remaining plugins. FIXME: bad plugin check
+if !isdirectory(expand("~/.vim/bundle/vim-fugitive"))
+  execute 'silent PluginInstall'
+  execute 'silent q'
+endif
 
 "" options
 
@@ -56,7 +68,6 @@ set autoindent
 set autoread
 set background=dark
 set backspace=2
-set cmdheight=2
 set diffopt+=iwhite
 set history=1000
 set hlsearch
