@@ -103,14 +103,8 @@ noremap   <Down>    <Nop>
 noremap   <Right>   <Nop>
 noremap   <Left>    <Nop>
 
-" Window Shifting
-map <C-J> <C-W>j<C-W>_
-map <C-K> <C-W>k<C-W>_
-map <C-L> <C-W>l<C-W>_
-map <C-H> <C-W>h<C-W>_
 
-
-" plugin options
+"" plugin options
 
 "airline
 let g:airline#extensions#tabline#enabled = 1
