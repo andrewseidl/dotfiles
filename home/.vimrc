@@ -26,14 +26,12 @@ Plugin 'gmarik/Vundle.vim'
 " original repos on github
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
-Plugin 'davidhalter/jedi-vim'
 Plugin 'fugalh/desert.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'kien/ctrlp.vim'
 Plugin 'kurkale6ka/vim-pairs'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'majutsushi/tagbar'
-Plugin 'rhysd/vim-clang-format'
 Plugin 'rking/ag.vim'
 Plugin 'Rykka/riv.vim'
 Plugin 'scrooloose/nerdcommenter'
@@ -45,6 +43,13 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-surround'
 Plugin 'Valloric/YouCompleteMe'
+
+" language-specific
+Plugin 'rhysd/vim-clang-format' " C++
+Plugin 'fatih/vim-go'           " Go
+Plugin 'eagletmt/ghcmod-vim'    " Haskell
+Plugin 'eagletmt/neco-ghc'      " Haskell
+Plugin 'davidhalter/jedi-vim'   " Python
 
 call vundle#end()
 
@@ -64,7 +69,7 @@ set autoread
 set background=dark
 set backspace=2
 set diffopt+=iwhite
-set history=1000
+set history=50
 set hlsearch
 set ignorecase
 set incsearch
@@ -112,7 +117,10 @@ noremap   <Left>    <Nop>
 
 "airline
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_section_y=""
 
 "jedi
 autocmd FileType python setlocal completeopt-=preview
@@ -126,7 +134,12 @@ map <leader>e :NERDTreeFind<CR>
 let NERDTreeShowBookmarks=1
 let NERDTreeChDirMode=0
 let NERDTreeQuitOnOpen=0
+let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=0
+let NERDTreeSortOrder=['*', '\.swp$',  '\.bak$', '\~$']
+let NERDTreeMinimalUI=1
+"close vim if only NERDTree is open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 "Tagbar
 map <leader>t :TagbarToggle<CR>
