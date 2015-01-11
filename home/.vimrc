@@ -7,7 +7,7 @@ set nocompatible
 set encoding=utf-8
 
 syntax on
-filetype plugin indent on
+filetype off
 
 
 "" plugins
@@ -26,6 +26,7 @@ Plugin 'gmarik/Vundle.vim'
 " original repos on github
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bling/vim-airline'
+Plugin 'davidhalter/jedi-vim'
 Plugin 'fugalh/desert.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'kien/ctrlp.vim'
@@ -52,6 +53,9 @@ if !isdirectory(expand("~/.vim/bundle/vim-fugitive"))
   execute 'silent PluginInstall'
   execute 'silent q'
 endif
+
+filetype plugin indent on
+
 
 "" options
 
@@ -110,6 +114,9 @@ noremap   <Left>    <Nop>
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
+"jedi
+autocmd FileType python setlocal completeopt-=preview
+
 "nerdcommenter
 let NERDSpaceDelims=1
 
@@ -119,7 +126,7 @@ map <leader>e :NERDTreeFind<CR>
 let NERDTreeShowBookmarks=1
 let NERDTreeChDirMode=0
 let NERDTreeQuitOnOpen=0
-let NERDTreeKeepTreeInNewTab=1
+let NERDTreeKeepTreeInNewTab=0
 
 "Tagbar
 map <leader>t :TagbarToggle<CR>
@@ -138,6 +145,7 @@ autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
 " Toggle auto formatting:
 nmap <Leader>C :ClangFormatAutoToggle<CR>
+
 
 
 "" tmux compatibility
