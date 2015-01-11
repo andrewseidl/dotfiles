@@ -1,5 +1,9 @@
 PATH="/usr/local/heroku/bin:$PATH"
 
+# go
+export GOPATH="$HOME/.go"
+PATH="$GOPATH/bin:$PATH"
+
 # google cloud
 if [ -f ~/google-cloud-sdk/path.zsh.inc ] ; then
     source "$HOME/google-cloud-sdk/path.zsh.inc"
@@ -27,6 +31,11 @@ fi
 # open
 if ! hash open 2>/dev/null; then
     alias open=xdg-open
+fi
+
+# hub
+if hash hub 2>/dev/null; then
+    alias git=hub
 fi
 
 # ruby and gems
