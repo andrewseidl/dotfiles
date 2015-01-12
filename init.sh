@@ -34,7 +34,7 @@ for i in $( find $PWD/home -maxdepth 1 -mindepth 1 ); do
     HOMEFILE="$HOME/$( basename $i )"
     if [[ -e $HOMEFILE ]] ; then
         if [[ "$i" != "$( readlink $HOMEFILE)" ]] ; then
-            mv $HOMEFILE{,-bak.$(date +%Y%m%d)}
+            mv $HOMEFILE{,.bak-$(date +%Y%m%d)}
         fi
     fi
     ln -sf $i $HOME/
