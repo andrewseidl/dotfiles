@@ -1,0 +1,16 @@
+URxvt*.background: Black
+URxvt*.foreground: White
+URxvt*.scrollBar: false
+
+URxvt*.font:        xft:Fixed-8
+URxvt*.boldFont:    xft:Fixed-8
+
+#URxvt*.font:        Xft:droid sans mono:medium
+#URxvt*.boldFont:    Xft:droid sans mono:medium
+
+URxvt*.saveLines: 65535
+
+URxvt*color4: RoyalBlue
+URxvt*color12: RoyalBlue
+
+Xcursor.size: 8
