@@ -95,8 +95,6 @@ set softtabstop=2
 
 colorscheme desert
 
-let g:ycm_confirm_extra_conf = 0
-
 
 "" key bindings
 let mapleader = " "
@@ -126,10 +124,19 @@ let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_section_y=""
 
-"jedi
+"clang-format
+" map to <leader>cf in C++ code
+autocmd FileType c,cpp,objc nnoremap <buffer><leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><leader>cf :ClangFormat<CR>
+" if you install vim-operator-user
+autocmd FileType c,cpp,objc map <buffer><leader>x <Plug>(operator-clang-format)
+" Toggle auto formatting:
+nmap <leader>C :ClangFormatAutoToggle<CR>
+
+"Jedi
 autocmd FileType python setlocal completeopt-=preview
 
-"nerdcommenter
+"NERDCommenter
 let NERDSpaceDelims=1
 
 "NERDTree
@@ -141,7 +148,6 @@ let NERDTreeQuitOnOpen=0
 let NERDTreeShowHidden=1
 let NERDTreeKeepTreeInNewTab=0
 let NERDTreeSortOrder=['*', '\.swp$',  '\.bak$', '\~$']
-let NERDTreeMinimalUI=1
 "close vim if only NERDTree is open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
@@ -154,16 +160,11 @@ vmap <leader>a= :Tabularize /=<CR>
 nmap <leader>a: :Tabularize /:\zs<CR>
 vmap <leader>a: :Tabularize /:\zs<CR>
 
-"ultisnips
+"UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-"clang-format
-" map to <Leader>cf in C++ code
-autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
-" if you install vim-operator-user
-autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
-" Toggle auto formatting:
-nmap <Leader>C :ClangFormatAutoToggle<CR>
+"YouCompleMe
+let g:ycm_confirm_extra_conf = 0
+nnoremap <leader>jd :YcmCompleter GoTo<CR>
