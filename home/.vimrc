@@ -53,6 +53,7 @@ Plugin 'rhysd/vim-clang-format' " C++
 Plugin 'fatih/vim-go'           " Go
 Plugin 'eagletmt/ghcmod-vim'    " Haskell
 Plugin 'eagletmt/neco-ghc'      " Haskell
+Plugin 'Shougo/vimproc'         " Haskell, for ghcmod
 Plugin 'davidhalter/jedi-vim'   " Python
 
 call vundle#end()
