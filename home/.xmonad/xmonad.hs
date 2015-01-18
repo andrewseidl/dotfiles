@@ -80,7 +80,7 @@ myLayout = avoidStruts (
     GridRatio (3/2) |||
     Grid |||
     ThreeCol 1 (3/100) (1/3) |||
-    ThreeColMid 1 (3/100) (1/3) |||
+    ThreeColMid 1 (3/100) (1/2) |||
     Tall 1 (3/100) (1/2) |||
     tabbed shrinkText tabConfig |||
     noBorders (fullscreenFull Full))
