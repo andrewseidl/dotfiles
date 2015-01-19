@@ -1,3 +1,11 @@
 .DS_Store
 *.swp
 *~
+
+.weechat/logs/
+
+#haskell
+*.o
+*.hi
+*.errors
+xmonad-x86_64-linux
