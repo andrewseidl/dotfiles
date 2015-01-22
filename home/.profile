@@ -5,10 +5,12 @@ export GOPATH="$HOME/.go"
 PATH="$GOPATH/bin:$PATH"
 
 # google cloud
-if [ -f ~/google-cloud-sdk/path.zsh.inc ] ; then
-    source "$HOME/google-cloud-sdk/path.zsh.inc"
+if [ -f ~/.gcloud/google-cloud-sdk/path.zsh.inc ] ; then
+    export CLOUDSDK_PYTHON=python2
 
-    source "$HOME/google-cloud-sdk/completion.zsh.inc"
+    source "$HOME/.gcloud/google-cloud-sdk/path.zsh.inc"
+
+    source "$HOME/.gcloud/google-cloud-sdk/completion.zsh.inc"
 fi
 
 # added by travis gem
