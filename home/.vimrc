@@ -166,6 +166,9 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
+"vim-go
+let g:go_fmt_command = "goimports"
+
 "YouCompleMe
 let g:ycm_confirm_extra_conf = 0
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
