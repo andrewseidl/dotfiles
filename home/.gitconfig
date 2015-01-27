@@ -52,3 +52,5 @@
 	default = simple
 [merge]
 	tool = vimdiff
+[branch]
+	autosetuprebase = always
