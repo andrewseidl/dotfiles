@@ -50,3 +50,5 @@
 	name = Andrew Seidl
 [push]
 	default = simple
+[merge]
+	tool = vimdiff
