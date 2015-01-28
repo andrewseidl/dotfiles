@@ -1,33 +1,28 @@
-PATH="/usr/local/heroku/bin:$PATH"
+# heroku
+[ -f /usr/local/heroku ] && PATH="/usr/local/heroku/bin:$PATH"
 
 # go
 export GOPATH="$HOME/.go"
 PATH="$GOPATH/bin:$PATH"
 
 # google cloud
-if [ -f ~/.gcloud/google-cloud-sdk/path.zsh.inc ] ; then
+if [ -f ~/.gcloud/google-cloud-sdk ] ; then
     export CLOUDSDK_PYTHON=python2
+    shell=$(echo "$0" | grep -o "[a-z]*") # hack, zsh sometimes gives -zsh
 
-    source "$HOME/.gcloud/google-cloud-sdk/path.zsh.inc"
-
-    source "$HOME/.gcloud/google-cloud-sdk/completion.zsh.inc"
+    source "$HOME/.gcloud/google-cloud-sdk/path.$shell.inc"
+    source "$HOME/.gcloud/google-cloud-sdk/completion.$shell.inc"
 fi
 
 # added by travis gem
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
 
-# homeshick
-if [ -e ~/.homesick ] ; then
-    source "$HOME/.homesick/repos/homeshick/homeshick.sh"
-    fpath=(~/.homesick/repos/homeshick/completions $fpath)
-fi
-
 # colorize ls 
-if [ "`uname`" = 'Darwin' ] ; then
+if [ "$(uname)" = 'Darwin' ] ; then
     alias ls="ls -G"
     export PATH=$(brew --prefix ruby)/bin:$PATH
 else
-    alias ls="ls --color"
+    alias ls="ls --color=auto"
 fi
 
 # open
@@ -41,16 +36,16 @@ if hash hub 2>/dev/null; then
 fi
 
 # ruby and gems
-if which ruby >/dev/null && which gem >/dev/null; then
+if hash ruby 2>/dev/null && hash gem 2>/dev/null; then
     PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
 fi
 
 # dircolors
 if [ -f ~/.dir_colors ] ; then
     if hash dircolors 2>/dev/null; then
-	eval `dircolors ~/.dir_colors`
+	eval $(dircolors ~/.dir_colors)
     elif hash gdircolors 2>/dev/null; then
-	eval `gdircolors ~/.dir_colors`
+	eval $(gdircolors ~/.dir_colors)
     fi  
 fi
 
@@ -59,6 +54,7 @@ export LC_COLLATE="en_US.UTF-8"
 export PATH=/usr/local/bin:$PATH
 
 # stolen from https://coderwall.com/p/powgbg
+# FIXME: potential issue with FreeBSD
 function ssht() {
     ssh $* -t 'tmux a || tmux || /bin/zsh || /bin/bash'
 }
