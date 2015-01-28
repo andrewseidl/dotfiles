@@ -1,7 +1,6 @@
-# stolen from: https://github.com/skwp/dotfiles/blob/master/git/gitconfig
+# portions stolen from: https://github.com/skwp/dotfiles/blob/master/git/gitconfig
 [alias]
 	a  = add
-	chunkyadd = add --patch
 	
 	c  = commit
 	ca = commit -a
