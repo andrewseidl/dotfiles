@@ -54,6 +54,7 @@ Plugin 'fatih/vim-go'           " Go
 Plugin 'eagletmt/ghcmod-vim'    " Haskell
 Plugin 'eagletmt/neco-ghc'      " Haskell
 Plugin 'Shougo/vimproc'         " Haskell, for ghcmod
+Plugin 'JuliaLang/julia-vim'    " Julia
 Plugin 'davidhalter/jedi-vim'   " Python
 
 call vundle#end()
