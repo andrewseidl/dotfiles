@@ -170,6 +170,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 "vim-go
 let g:go_fmt_command = "goimports"
 
-"YouCompleMe
+"YouCompleteMe
 let g:ycm_confirm_extra_conf = 0
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
