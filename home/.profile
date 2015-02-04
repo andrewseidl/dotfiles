@@ -49,6 +49,9 @@ if [ -f ~/.dir_colors ] ; then
     fi  
 fi
 
+# cabal
+[[ -f $HOME/.cabal/bin ]] && PATH=$HOME/.cabal/bin:$PATH
+
 export LC_COLLATE="en_US.UTF-8"
 
 export PATH=/usr/local/bin:$PATH
