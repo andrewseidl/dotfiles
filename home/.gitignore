@@ -3,9 +3,10 @@
 *~
 
 .weechat/logs/
+.weechat/weechat.log
 
 #haskell
 *.o
 *.hi
 *.errors
-xmonad-x86_64-linux
+.xmonad
