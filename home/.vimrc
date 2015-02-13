@@ -40,6 +40,7 @@ Plugin 'Rykka/riv.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
+Plugin 'sotte/presenting.vim'
 Plugin 'terryma/vim-expand-region'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
@@ -135,6 +136,15 @@ autocmd FileType c,cpp,objc vnoremap <buffer><leader>cf :ClangFormat<CR>
 autocmd FileType c,cpp,objc map <buffer><leader>x <Plug>(operator-clang-format)
 " Toggle auto formatting:
 nmap <leader>C :ClangFormatAutoToggle<CR>
+
+"GHCMod
+nnoremap <buffer> <Leader>ht :GhcModType<CR>
+nnoremap <buffer> <Leader>hh :GhcModTypeClear<CR>
+nnoremap <buffer> <Leader>hc :GhcModCheck<CR>
+nnoremap <buffer> <Leader>hl :GhcModLint<CR>
+au FileType haskell setlocal omnifunc=necoghc#omnifunc
+let g:necoghc_enable_detailed_browse = 1
+au FileType haskell nnoremap <buffer> <Leader>h :! cabal test --show-details=always --test-options="--color"<CR>
 
 "Jedi
 autocmd FileType python setlocal completeopt-=preview
