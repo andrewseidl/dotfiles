@@ -50,6 +50,12 @@ Plugin 'Valloric/YouCompleteMe'
 "Plugin 'SirVer/ultisnips'
 "Plugin 'honza/vim-snippets'
 
+" code formatting
+Plugin 'google/vim-maktaba'
+Plugin 'google/vim-codefmtlib'
+Plugin 'google/vim-codefmt'
+Plugin 'google/vim-glaive'
+
 " language-specific
 Plugin 'rhysd/vim-clang-format' " C++
 Plugin 'fatih/vim-go'           " Go
@@ -136,6 +142,13 @@ autocmd FileType c,cpp,objc vnoremap <buffer><leader>cf :ClangFormat<CR>
 autocmd FileType c,cpp,objc map <buffer><leader>x <Plug>(operator-clang-format)
 " Toggle auto formatting:
 nmap <leader>C :ClangFormatAutoToggle<CR>
+
+"google-codefmt
+" map to <leader>cf in C++ code
+autocmd FileType c,cpp,objc nnoremap <buffer><leader>fc :<C-u>FormatCode<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><leader>fc :FormatCode<CR>
+" Enable auto formatting:
+nmap <leader>gcf :AutoFormatBuffer<CR>
 
 "GHCMod
 nnoremap <buffer> <Leader>ht :GhcModType<CR>
