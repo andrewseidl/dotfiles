@@ -99,26 +99,6 @@ bindkey "^[[1;5C" forward-word
 bindkey "\e[3~" delete-char # Del
 
 
-prompt_gentoo_prompt=${1:-'cyan'}
-prompt_gentoo_user=${2:-'green'}
-prompt_gentoo_root=${3:-'red'}
-
-if [ "$USER" = 'root' ]
-then
-  base_prompt="%B%F{$prompt_gentoo_root}%m%k "
-  end_prompt="#"
-else
-  base_prompt="%B%F{$prompt_gentoo_user}%n@%m%k "
-  end_prompt="$"
-fi
-post_prompt="%b%f%k"
-
-#setopt noxtrace localoptions
-
-path_prompt="%B%F{$prompt_gentoo_prompt}%1~"
-PS1="$base_prompt$path_prompt $end_prompt $post_prompt"
-PS2="$base_prompt$path_prompt %_> $post_prompt"
-PS3="$base_prompt$path_prompt ?# $post_prompt"
 
 
 if [ -f ~/.profile ]
@@ -131,3 +111,43 @@ if [ -f ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
 then
     source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+
+ZGIT=~/.zsh/plugins/zsh-git-prompt
+if [ -f $ZGIT/dist/build/gitstatus/gitstatus ] ; then
+  GIT_PROMPT_EXECUTABLE="haskell"
+fi
+
+EXTRA_STATUS=""
+if [ -f $ZGIT/zshrc.sh ] ; then
+  export ZSH_THEME_GIT_PROMPT_CACHE
+  source $ZGIT/zshrc.sh
+  EXTRA_STATUS='$(git_super_status)'
+  #export RPROMPT='%B%m %~%b'
+fi
+
+
+prompt_prompt=${1:-'cyan'}
+prompt_user=${2:-'green'}
+prompt_root=${3:-'red'}
+
+MACHINE=""
+if [ "$SSH_CLIENT" ] ; then
+  MACHINE='%m%k '
+fi
+if [ "$USER" = 'root' ]
+then
+  base_prompt="%B%F{$prompt_root}$MACHINE"
+  end_prompt="#"
+else
+  base_prompt="%B%F{$prompt_user}$MACHINE"
+  end_prompt="$"
+fi
+post_prompt="%b%f%k"
+
+#setopt noxtrace localoptions
+
+path_prompt="%B%F{$prompt_prompt}%1~"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%B%F{$prompt_prompt}) "
+PS1="$base_prompt$path_prompt $EXTRA_STATUS$end_prompt $post_prompt"
+PS2="$base_prompt$path_prompt %_> $post_prompt"
+PS3="$base_prompt$path_prompt ?# $post_prompt"
