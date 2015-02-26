@@ -13,6 +13,12 @@ if [[ ! -e $ZSHL ]] ; then
     git clone git://github.com/zsh-users/zsh-syntax-highlighting.git $ZSHL
 fi
 
+# install syntax highlighting for zsh
+ZSHP=$HOME/.zsh/plugins/zsh-git-prompt
+if [[ ! -e $ZSHP ]] ; then
+    git clone git://github.com/olivierverdier/zsh-git-prompt.git $ZSHP
+fi
+
 # clone dotfiles if they don't exist
 if [[ ! -e "$DFDIR" ]] ; then
     git clone git://github.com/andrewseidl/dotfiles.git "$DFDIR"
@@ -29,7 +35,7 @@ else
     git status -s
 fi
 
-# for each dotfile, back up existing in $HOME and symlink new 
+# for each dotfile, back up existing in $HOME and symlink new
 for i in $( find $PWD/home -maxdepth 1 -mindepth 1 ); do
     HOMEFILE="$HOME/$( basename $i )"
     if [[ -e $HOMEFILE ]] ; then
