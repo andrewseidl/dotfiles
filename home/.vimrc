@@ -46,7 +46,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-surround'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 "Plugin 'SirVer/ultisnips'
 "Plugin 'honza/vim-snippets'
 
@@ -133,6 +133,7 @@ let g:airline_powerline_fonts = 0
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_section_y=""
+let g:airline_theme='raven'
 
 "clang-format
 " map to <leader>cf in C++ code
@@ -158,6 +159,9 @@ nnoremap <buffer> <Leader>hl :GhcModLint<CR>
 au FileType haskell setlocal omnifunc=necoghc#omnifunc
 let g:necoghc_enable_detailed_browse = 1
 au FileType haskell nnoremap <buffer> <Leader>h :! cabal test --show-details=always --test-options="--color"<CR>
+
+"gitgutter
+highlight clear SignColumn
 
 "Jedi
 autocmd FileType python setlocal completeopt-=preview
