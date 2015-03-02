@@ -20,6 +20,9 @@ setopt COMPLETE_IN_WORD
 setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY
 
+# run 'rehash' automatically
+setopt nohashdirs
+
 HISTSIZE=20000
 HISTFILE=~/.history
 SAVEHIST=20000
