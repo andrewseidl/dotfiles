@@ -54,7 +54,7 @@ fi
 
 export LC_COLLATE="en_US.UTF-8"
 
-export PATH=/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # stolen from https://coderwall.com/p/powgbg
 # FIXME: potential issue with FreeBSD
