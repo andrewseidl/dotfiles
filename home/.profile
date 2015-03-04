@@ -30,6 +30,13 @@ if ! hash open 2>/dev/null; then
     alias open=xdg-open
 fi
 
+# ldd
+if ! hash ldd 2>/dev/null; then
+    if hash otool 2>/dev/null; then
+	alias ldd="otool -L"
+    fi
+fi
+
 # hub
 if hash hub 2>/dev/null; then
     alias git=hub
