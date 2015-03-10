@@ -2,6 +2,7 @@
 " - Aaron Bartholomew: https://github.com/abartholome2/vim-xtreme
 " - Jon Childress: github.com/jonplussed/dotfiles
 " - ryanss: gihub.com/ryanss/vim
+" - Jessie Frazelle: https://github.com/jfrazelle/.vim
 
 set nocompatible
 set encoding=utf-8
@@ -112,6 +113,9 @@ nmap <space> <leader>
 
 " clear highlights
 nmap <silent> <leader>/ :nohlsearch<CR>
+
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
 
 " up/down by visual line, not actual line
 nnoremap j gj
