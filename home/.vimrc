@@ -1,8 +1,8 @@
-" Insiration from:
-" - Aaron Bartholomew: https://github.com/abartholome2/vim-xtreme
+" Inspiration from:
+" - Aaron Bartholomew: github.com/abartholome2/vim-xtreme
 " - Jon Childress: github.com/jonplussed/dotfiles
-" - ryanss: gihub.com/ryanss/vim
-" - Jessie Frazelle: https://github.com/jfrazelle/.vim
+" - ryanss: github.com/ryanss/vim
+" - Jessie Frazelle: github.com/jfrazelle/.vim
 
 set nocompatible
 set encoding=utf-8
@@ -114,7 +114,7 @@ nmap <space> <leader>
 " clear highlights
 nmap <silent> <leader>/ :nohlsearch<CR>
 
-" Allow saving of files as sudo when I forgot to start vim using sudo.
+" save with sudo if regular user
 cmap w!! w !sudo tee > /dev/null %
 
 " up/down by visual line, not actual line
