@@ -70,5 +70,10 @@ function ssht() {
 }
 
 alias shopt=/bin/false
-alias vi="echo No."
 
+# vim
+alias vi="echo No."
+# use neovim when available
+if hash nvim 2>/dev/null; then
+    alias vim=nvim
+fi
