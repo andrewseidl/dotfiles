@@ -26,10 +26,10 @@ Plugin 'gmarik/Vundle.vim'
 
 " original repos on github
 Plugin 'airblade/vim-gitgutter'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'christoomey/vim-tmux-navigator'
 "Plugin 'ervandew/supertab'
-Plugin 'fugalh/desert.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'kien/ctrlp.vim'
 Plugin 'kopischke/vim-fetch'
@@ -104,7 +104,10 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 
-colorscheme desert
+" color scheme
+let g:solarized_termcolors=256
+let g:solarized_termtrans=1
+colorscheme solarized
 
 
 "" key bindings
@@ -137,7 +140,7 @@ let g:airline_powerline_fonts = 0
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_section_y=""
-let g:airline_theme='raven'
+let g:airline_theme='solarized'
 
 "clang-format
 " map to <leader>cf in C++ code
