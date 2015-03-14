@@ -73,7 +73,7 @@ alias shopt=/bin/false
 
 # vim
 alias vi="echo No."
-# use neovim when available
-if hash nvim 2>/dev/null; then
-    alias vim=nvim
-fi
+## use neovim when available
+#if hash nvim 2>/dev/null; then
+#    alias vim=nvim
+#fi
