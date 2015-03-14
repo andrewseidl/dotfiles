@@ -31,6 +31,7 @@ Plugin 'bling/vim-airline'
 Plugin 'christoomey/vim-tmux-navigator'
 "Plugin 'ervandew/supertab'
 Plugin 'godlygeek/tabular'
+Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'kien/ctrlp.vim'
 Plugin 'kopischke/vim-fetch'
 Plugin 'kurkale6ka/vim-pairs'
@@ -201,6 +202,12 @@ vmap <leader>a: :Tabularize /:\zs<CR>
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+"vim-flavored-markdown
+augroup markdown
+  au!
+  au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+augroup END
 
 "vim-go
 let g:go_fmt_command = "goimports"
