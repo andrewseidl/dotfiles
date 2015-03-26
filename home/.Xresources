@@ -1,4 +1,4 @@
-URxvt*.background: Black
+URxvt*.background: #002b36
 URxvt*.foreground: White
 URxvt*.scrollBar: false
 
