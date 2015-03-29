@@ -2,7 +2,7 @@
 [ -f /usr/local/heroku ] && PATH="/usr/local/heroku/bin:$PATH"
 
 # go
-export GOPATH="$HOME/.go"
+export GOPATH="$HOME"
 PATH="$GOPATH/bin:$PATH"
 
 # google cloud
