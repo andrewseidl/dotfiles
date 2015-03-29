@@ -102,6 +102,10 @@ bindkey "^[[1;5C" forward-word
 bindkey "\e[3~" delete-char # Del
 
 
+# auto pushd directories
+setopt AUTO_PUSHD
+setopt PUSHD_SILENT
+setopt PUSHD_IGNORE_DUPS
 
 
 if [ -f ~/.profile ]
