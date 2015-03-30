@@ -104,7 +104,7 @@ bindkey "\e[3~" delete-char # Del
 
 # auto pushd directories
 # from https://wiki.archlinux.org/index.php/Zsh#Dirstack
-DIRSTACKFILE="$HOME/.cache/zsh/dirs"
+DIRSTACKFILE="$HOME/.cache/zsh/dirs.$$"
 mkdir -p $(dirname $DIRSTACKFILE)
 if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
   dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
