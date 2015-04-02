@@ -54,7 +54,6 @@ Plugin 'tpope/vim-surround'
 
 " code formatting
 Plugin 'google/vim-maktaba'
-Plugin 'google/vim-codefmtlib'
 Plugin 'google/vim-codefmt'
 Plugin 'google/vim-glaive'
 
@@ -153,6 +152,8 @@ autocmd FileType c,cpp,objc map <buffer><leader>x <Plug>(operator-clang-format)
 nmap <leader>C :ClangFormatAutoToggle<CR>
 
 "google-codefmt
+call glaive#Install()
+Glaive codefmt plugin[mappings]
 " map to <leader>cf in C++ code
 autocmd FileType c,cpp,objc nnoremap <buffer><leader>fc :<C-u>FormatCode<CR>
 autocmd FileType c,cpp,objc vnoremap <buffer><leader>fc :FormatCode<CR>
