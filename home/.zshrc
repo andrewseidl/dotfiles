@@ -137,9 +137,6 @@ then
 fi
 
 ZGIT=~/.zsh/plugins/zsh-git-prompt
-if [ -f $ZGIT/dist/build/gitstatus/gitstatus ] ; then
-  GIT_PROMPT_EXECUTABLE="haskell"
-fi
 
 EXTRA_STATUS=""
 if [ -f $ZGIT/zshrc.sh ] ; then
@@ -149,6 +146,9 @@ if [ -f $ZGIT/zshrc.sh ] ; then
   #export RPROMPT='%B%m %~%b'
 fi
 
+if [ -f $ZGIT/dist/build/gitstatus/gitstatus ] ; then
+  export GIT_PROMPT_EXECUTABLE="haskell"
+fi
 
 prompt_prompt=${1:-'cyan'}
 prompt_user=${2:-'green'}
