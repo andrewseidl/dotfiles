@@ -37,6 +37,14 @@ if ! hash ldd 2>/dev/null; then
     fi
 fi
 
+# lynx
+if [ -f ~/.lynx.lss ] ; then
+    export LYNX_LSS=~/.lynx.lss
+fi
+if [ -f ~/.lynx.cfg ] ; then
+    export LYNX_CFG=~/.lynx.cfg
+fi
+
 # hub
 if hash hub 2>/dev/null; then
     alias git=hub
