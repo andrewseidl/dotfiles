@@ -136,6 +136,14 @@ noremap   <Down>    <Nop>
 noremap   <Right>   <Nop>
 noremap   <Left>    <Nop>
 
+" center the screen on search results
+nnoremap n  nzz
+nnoremap N  Nzz
+nnoremap *  *zz
+nnoremap #  #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
+
 
 "" plugin options
 
