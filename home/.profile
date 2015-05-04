@@ -85,3 +85,6 @@ alias vi="echo No."
 #if hash nvim 2>/dev/null; then
 #    alias vim=nvim
 #fi
+
+# create a temporary dir and cd to it
+alias cdtemp="cd $(mktemp -d /tmp/tmp.XXXXXXXXXXX)"
