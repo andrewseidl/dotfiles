@@ -87,4 +87,5 @@ alias vi="echo No."
 #fi
 
 # create a temporary dir and cd to it
-alias cdtemp="cd $(mktemp -d /tmp/tmp.XXXXXXXXXXX)"
+alias cdtemp='cd $(mktemp -d /tmp/tmpd.$(date +%s).XXX)'
+alias cdlasttemp='cd $(ls -d /tmp/tmpd* | tail -n1)'
