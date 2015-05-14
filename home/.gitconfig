@@ -50,7 +50,7 @@
 	email = dev@aas.io
 	name = Andrew Seidl
 [push]
-	default = simple
+	default = current
 [merge]
 	tool = vimdiff
 [branch]
