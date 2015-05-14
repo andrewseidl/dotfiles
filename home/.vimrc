@@ -100,7 +100,6 @@ set virtualedit=all
 set wildmenu
 
 " because we have standards -jonplussed
-set colorcolumn=80
 set textwidth=79
 
 " these may get overridden by tpope/vim-sleuth
