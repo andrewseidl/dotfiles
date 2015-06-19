@@ -50,6 +50,13 @@ if hash hub 2>/dev/null; then
     alias git=hub
 fi
 
+# clang-format
+if ! hash clang-format 2>/dev/null; then
+    if hash clang-format-3.5 2>/dev/null; then
+	alias clang-format=clang-format-3.5
+    fi
+fi
+
 # ruby and gems
 if hash ruby 2>/dev/null && hash gem 2>/dev/null; then
     PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
