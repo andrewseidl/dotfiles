@@ -96,3 +96,7 @@ alias vi="echo No."
 # create a temporary dir and cd to it
 alias cdtemp='cd $(mktemp -d /tmp/tmpd.$(date +%s).XXX)'
 alias cdlasttemp='cd $(ls -d /tmp/tmpd* | tail -n1)'
+
+# like nproc, but shows all logical processing units
+# and works on anything that's posix-compliant
+alias lproc='getconf _NPROCESSORS_ONLN'
