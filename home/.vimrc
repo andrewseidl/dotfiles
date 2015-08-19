@@ -100,7 +100,7 @@ set virtualedit=all
 set wildmenu
 
 " because we have standards -jonplussed
-set textwidth=79
+"set textwidth=79
 
 " these may get overridden by tpope/vim-sleuth
 set expandtab
