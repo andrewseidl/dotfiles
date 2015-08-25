@@ -97,6 +97,4 @@ alias vi="echo No."
 alias cdtemp='cd $(mktemp -d /tmp/tmpd.$(date +%s).XXX)'
 alias cdlasttemp='cd $(ls -d /tmp/tmpd* | tail -n1)'
 
-# like nproc, but shows all logical processing units
-# and works on anything that's posix-compliant
-alias lproc='getconf _NPROCESSORS_ONLN'
+[[ -f $HOME/.profile.local ]] && source $HOME/.profile.local
