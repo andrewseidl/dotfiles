@@ -48,7 +48,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-surround'
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 "Plugin 'SirVer/ultisnips'
 "Plugin 'honza/vim-snippets'
 
@@ -111,7 +111,7 @@ set softtabstop=2
 " color scheme
 let g:solarized_termcolors=256
 let g:solarized_termtrans=1
-colorscheme solarized
+" colorscheme solarized
 
 
 "" key bindings
