@@ -26,11 +26,10 @@ Plugin 'gmarik/Vundle.vim'
 
 " original repos on github
 Plugin 'airblade/vim-gitgutter'
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'christoomey/vim-tmux-navigator'
 "Plugin 'ervandew/supertab'
-Plugin 'godlygeek/tabular'
+"Plugin 'godlygeek/tabular'
 Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'kien/ctrlp.vim'
 Plugin 'kopischke/vim-fetch'
@@ -38,16 +37,15 @@ Plugin 'kurkale6ka/vim-pairs'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'majutsushi/tagbar'
 Plugin 'rking/ag.vim'
-Plugin 'Rykka/riv.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-Plugin 'sotte/presenting.vim'
 Plugin 'terryma/vim-expand-region'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
 Plugin 'Valloric/YouCompleteMe'
 "Plugin 'SirVer/ultisnips'
 "Plugin 'honza/vim-snippets'
@@ -108,11 +106,6 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 
-" color scheme
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-" colorscheme solarized
-
 
 "" key bindings
 let mapleader = " "
@@ -120,6 +113,9 @@ nmap <space> <leader>
 
 " clear highlights
 nmap <silent> <leader>/ :nohlsearch<CR>
+
+" toggle wrapping
+nmap <leader>w :set wrap!<CR>
 
 " save with sudo if regular user
 cmap w!! w !sudo tee > /dev/null %
@@ -143,6 +139,16 @@ nnoremap #  #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
 
+" Automatically open, but do not go to (if there are errors) the quickfix /
+" location list window, or close it when is has become empty.
+"
+" Note: Must allow nesting of autocmds to enable any customizations for quickfix
+" buffers.
+" Note: Normally, :cwindow jumps to the quickfix window if the command opens it
+" (but not if it's already open). However, as part of the autocmd, this doesn't
+" seem to happen.
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
 
 "" plugin options
 
@@ -152,7 +158,7 @@ let g:airline_powerline_fonts = 0
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_section_y=""
-let g:airline_theme='solarized'
+let g:airline_theme='luna'
 
 "clang-format
 " map to <leader>cf in C++ code
@@ -182,7 +188,7 @@ let g:necoghc_enable_detailed_browse = 1
 au FileType haskell nnoremap <buffer> <Leader>h :! cabal test --show-details=always --test-options="--color"<CR>
 
 "gitgutter
-highlight clear SignColumn
+"highlight clear SignColumn
 
 "Jedi
 autocmd FileType python setlocal completeopt-=preview
