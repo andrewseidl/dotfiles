@@ -97,6 +97,29 @@ set showmatch
 set virtualedit=all
 set wildmenu
 
+" undo
+if !isdirectory(expand("~/.vim/undo"))
+  call system("mkdir -p ~/.vim/undo")
+endif
+set undofile
+set undodir=~/.vim/undo
+set undolevels=1000
+set undoreload=10000
+
+" Jump to the last position when reopening a file
+set viminfo='100,\"300,:200,%,n~/.viminfo
+function! ResCur()
+  if line("'\"") <= line("$")
+    normal! g`"
+    return 1
+  endif
+endfunction
+
+augroup resCur
+  autocmd!
+  autocmd BufWinEnter * call ResCur()
+augroup END
+
 " because we have standards -jonplussed
 "set textwidth=79
 
