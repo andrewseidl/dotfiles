@@ -39,6 +39,9 @@
 	sd = stash drop
 
 	st = status
+
+	# http://www.chrisle.me/2012/12/git-fuck-it/
+	fuckit = "!git clean -d -x -f ; git reset --hard"
 [color]
 	ui = auto
 [core]
