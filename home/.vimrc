@@ -97,6 +97,10 @@ set showmatch
 set virtualedit=all
 set wildmenu
 
+"colors
+set fillchars=vert:│,fold:-
+highlight VertSplit cterm=none ctermbg=none ctermfg=247
+
 " undo
 if !isdirectory(expand("~/.vim/undo"))
   call system("mkdir -p ~/.vim/undo")
