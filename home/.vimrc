@@ -87,7 +87,8 @@ set hlsearch
 set ignorecase
 set incsearch
 set laststatus=2
-set lazyredraw
+set nolazyredraw
+set ttyfast
 set number
 set scrolloff=5
 set showcmd
