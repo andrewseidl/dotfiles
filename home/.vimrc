@@ -186,7 +186,7 @@ let g:airline_powerline_fonts = 0
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_section_y=""
-let g:airline_theme='luna'
+let g:airline_theme='murmur'
 
 "clang-format
 " map to <leader>cf in C++ code
