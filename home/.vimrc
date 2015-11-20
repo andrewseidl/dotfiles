@@ -13,62 +13,61 @@ filetype off
 
 "" plugins
 
-" Auto-install Vundle
-if !isdirectory(expand("~/.vim/bundle/Vundle.vim"))
-  call system("git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim")
+" Auto-install vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  call system("curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim")
 endif
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
 " let Vundle manage Vundle
-Plugin 'gmarik/Vundle.vim'
+Plug 'gmarik/Vundle.vim'
 
 " original repos on github
-Plugin 'airblade/vim-gitgutter'
-Plugin 'bling/vim-airline'
-Plugin 'christoomey/vim-tmux-navigator'
-"Plugin 'ervandew/supertab'
-"Plugin 'godlygeek/tabular'
-Plugin 'jtratner/vim-flavored-markdown'
-Plugin 'kien/ctrlp.vim'
-Plugin 'kopischke/vim-fetch'
-Plugin 'kurkale6ka/vim-pairs'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'majutsushi/tagbar'
-Plugin 'rking/ag.vim'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'terryma/vim-expand-region'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-sleuth'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'Valloric/YouCompleteMe'
-"Plugin 'SirVer/ultisnips'
-"Plugin 'honza/vim-snippets'
+Plug 'airblade/vim-gitgutter'
+Plug 'bling/vim-airline'
+Plug 'christoomey/vim-tmux-navigator'
+"Plug 'ervandew/supertab'
+"Plug 'godlygeek/tabular'
+Plug 'jtratner/vim-flavored-markdown'
+Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' }
+Plug 'kopischke/vim-fetch'
+Plug 'kurkale6ka/vim-pairs'
+Plug 'Lokaltog/vim-easymotion'
+Plug 'majutsushi/tagbar'
+Plug 'rking/ag.vim'
+Plug 'scrooloose/nerdcommenter', { 'on': 'NERDComToggleComment' }
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/syntastic'
+Plug 'terryma/vim-expand-region'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'Valloric/YouCompleteMe'
+"Plug 'SirVer/ultisnips'
+"Plug 'honza/vim-snippets'
 
 " code formatting
-Plugin 'google/vim-maktaba'
-Plugin 'google/vim-codefmt'
-Plugin 'google/vim-glaive'
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
+Plug 'google/vim-glaive'
 
 " language-specific
-Plugin 'rhysd/vim-clang-format' " C++
-Plugin 'fatih/vim-go'           " Go
-Plugin 'eagletmt/ghcmod-vim'    " Haskell
-Plugin 'eagletmt/neco-ghc'      " Haskell
-Plugin 'Shougo/vimproc'         " Haskell, for ghcmod
-Plugin 'JuliaLang/julia-vim'    " Julia
-Plugin 'davidhalter/jedi-vim'   " Python
+Plug 'rhysd/vim-clang-format' " C++
+Plug 'fatih/vim-go'           " Go
+Plug 'eagletmt/ghcmod-vim'    " Haskell
+Plug 'eagletmt/neco-ghc'      " Haskell
+Plug 'Shougo/vimproc'         " Haskell, for ghcmod
+Plug 'JuliaLang/julia-vim'    " Julia
+Plug 'davidhalter/jedi-vim'   " Python
 
-call vundle#end()
+call plug#end()
 
 " Auto-install remaining plugins. FIXME: bad plugin check
-if !isdirectory(expand("~/.vim/bundle/vim-fugitive"))
-  execute 'silent PluginInstall'
+if !isdirectory(expand("~/.vim/plugged/vim-fugitive"))
+  execute 'silent PlugInstall'
   execute 'silent q'
 endif
 
@@ -197,6 +196,9 @@ autocmd FileType c,cpp,objc map <buffer><leader>x <Plug>(operator-clang-format)
 " Toggle auto formatting:
 nmap <leader>C :ClangFormatAutoToggle<CR>
 
+"ctrlp
+map <c-p> :CtrlP<CR>
+
 "google-codefmt
 call glaive#Install()
 Glaive codefmt plugin[mappings]
@@ -223,6 +225,7 @@ autocmd FileType python setlocal completeopt-=preview
 
 "NERDCommenter
 let NERDSpaceDelims=1
+map <leader>cc :NERDComToggleComment<CR>
 
 "NERDTree
 map <leader>d :NERDTreeToggle<CR>
