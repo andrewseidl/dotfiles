@@ -6,6 +6,8 @@
 
 # /grml: http://grml.org/zsh/zsh-lovers.html
 
+zmodload zsh/zprof
+
 autoload -U compinit
 compinit
 
@@ -131,11 +133,6 @@ then
 fi
 
 
-if [ -f ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
-then
-    source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-
 ZGIT=~/.zsh/plugins/zsh-git-prompt
 
 EXTRA_STATUS=""
@@ -175,3 +172,8 @@ ZSH_THEME_GIT_PROMPT_SUFFIX="%B%F{$prompt_prompt}) "
 PS1="$base_prompt$path_prompt $EXTRA_STATUS$end_prompt $post_prompt"
 PS2="$base_prompt$path_prompt %_> $post_prompt"
 PS3="$base_prompt$path_prompt ?# $post_prompt"
+
+if [ -f ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
+then
+    source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
