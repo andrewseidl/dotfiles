@@ -27,13 +27,15 @@ Plug 'gmarik/Vundle.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'christoomey/vim-tmux-navigator'
-"Plug 'ervandew/supertab'
+Plug 'ervandew/supertab'
 "Plug 'godlygeek/tabular'
+Plug 'johnsyweb/vim-makeshift'
 Plug 'jtratner/vim-flavored-markdown'
 Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' }
 Plug 'kopischke/vim-fetch'
 Plug 'kurkale6ka/vim-pairs'
 Plug 'Lokaltog/vim-easymotion'
+Plug 'luochen1990/rainbow'
 Plug 'majutsushi/tagbar'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter', { 'on': 'NERDComToggleComment' }
@@ -47,8 +49,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'Valloric/YouCompleteMe'
 Plug 'vim-scripts/Conque-GDB'
-"Plug 'SirVer/ultisnips'
-"Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
 
 " code formatting
 Plug 'google/vim-maktaba'
@@ -224,6 +226,10 @@ au FileType haskell nnoremap <buffer> <Leader>h :! cabal test --show-details=alw
 "Jedi
 autocmd FileType python setlocal completeopt-=preview
 
+"makeshift
+let g:makeshift_use_pwd_first = 1
+let g:makeshift_chdir = 1
+
 "NERDCommenter
 let NERDSpaceDelims=1
 map <leader>cc :NERDComToggleComment<CR>
@@ -239,6 +245,9 @@ let NERDTreeKeepTreeInNewTab=0
 let NERDTreeSortOrder=['*', '\.swp$',  '\.bak$', '\~$']
 "close vim if only NERDTree is open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+"rainbow-parens
+let g:rainbow_active = 1
 
 "Tagbar
 map <leader>t :TagbarToggle<CR>
@@ -266,3 +275,13 @@ let g:go_fmt_command = "goimports"
 "YouCompleteMe
 let g:ycm_confirm_extra_conf = 0
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
