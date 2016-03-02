@@ -48,7 +48,7 @@ Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'Valloric/YouCompleteMe'
-Plug 'vim-scripts/Conque-GDB'
+"Plug 'vim-scripts/Conque-GDB'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 
