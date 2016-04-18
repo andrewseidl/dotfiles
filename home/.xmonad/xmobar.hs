@@ -7,8 +7,8 @@
 -- This is setup for dual 1920x1080 monitors
 Config {
     font = "xft:Fixed-8",
-    bgColor = "#002b36",
-    fgColor = "#657b83",
+    bgColor = "#000000",
+    fgColor = "#ffffff",
     position = Static { xpos = 0, ypos = 0, width = 2560, height = 10 },
     lowerOnStart = True,
     commands = [

@@ -51,7 +51,6 @@ Plug 'Valloric/YouCompleteMe'
 "Plug 'vim-scripts/Conque-GDB'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
-
 " code formatting
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
@@ -135,7 +134,6 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
-
 
 "" key bindings
 let mapleader = " "
