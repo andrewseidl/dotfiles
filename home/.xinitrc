@@ -20,5 +20,5 @@ fi
 xsetroot -cursor_name left_ptr &
 xcompmgr &
 hsetroot -solid #000000
-#exec xmonad
-exec i3
+exec xmonad
+#exec i3
