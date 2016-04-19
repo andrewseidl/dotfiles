@@ -25,7 +25,6 @@ Plug 'gmarik/Vundle.vim'
 
 " original repos on github
 Plug 'airblade/vim-gitgutter'
-Plug 'bling/vim-airline'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ervandew/supertab'
 "Plug 'godlygeek/tabular'
@@ -49,6 +48,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'Valloric/YouCompleteMe'
 "Plug 'vim-scripts/Conque-GDB'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " code formatting
