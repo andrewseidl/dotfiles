@@ -72,11 +72,16 @@
 	mnemonicprefix = true
 	algorithm = patience
 
-# verify object integrity
-# https://groups.google.com/forum/#!topic/binary-transparency/f-BI4o8HZW0
-[transfer] 
-	fsckobjects = true 
-[fetch] 
-	fsckobjects = true 
-[receive] 
-	fsckObjects = true
+# Disabling fsck due to compatibility issues with Git 1.8 and vim-plugged
+## verify object integrity
+## https://groups.google.com/forum/#!topic/binary-transparency/f-BI4o8HZW0
+#[transfer] 
+#	fsckobjects = true 
+#[fetch] 
+#	fsckobjects = true
+#[receive] 
+#	fsckObjects = true
+## required for kennethreitz/requests, itself required by ycmd
+#[fsck]
+#	badTimezone = ignore
+
