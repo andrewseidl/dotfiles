@@ -5,11 +5,9 @@
 	b = branch
 
 	c  = commit
-	ca = commit -a
 	amend = commit --amend
 
 	co = checkout
-	nb = checkout -b
 
 	cp = cherry-pick -x
 
@@ -23,20 +21,8 @@
 	simple = log --pretty=format:\" * %s\"
 	shortnocolor = log --pretty=format:\"%h %cr %cn %s\"
 
-	pl = pull
-	ps = push
-
-	rc = rebase --continue
-	rs = rebase --skip
-
 	unstage = reset HEAD
 	uncommit = reset --soft HEAD^
-	mt = mergetool
-
-	ss = stash
-	sl = stash list
-	sa = stash apply
-	sd = stash drop
 
 	st = status
 
