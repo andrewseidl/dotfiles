@@ -4,25 +4,17 @@
 
 	b = branch
 
-	c  = commit
 	amend = commit --amend
 
 	co = checkout
 
 	cp = cherry-pick -x
 
-	d  = diff
-	dc = diff --cached
-	last = diff HEAD^
-
 	l = log --graph --date=default
 	changes = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status
 	short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
 	simple = log --pretty=format:\" * %s\"
 	shortnocolor = log --pretty=format:\"%h %cr %cn %s\"
-
-	unstage = reset HEAD
-	uncommit = reset --soft HEAD^
 
 	st = status
 
