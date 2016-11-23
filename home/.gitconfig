@@ -34,6 +34,7 @@
 	default = current
 [merge]
 	tool = vimdiff
+	ff = only
 [rebase]
 	autostash = true
 [branch]
