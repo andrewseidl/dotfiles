@@ -62,6 +62,10 @@ zstyle ':completion:*:functions' ignored-patterns '_*'
 zstyle ':completion:*:*:kill:*' menu yes select
 zstyle ':completion:*:kill:*'   force-list always
 
+# complete .ssh/config hostnames
+zstyle -e ':completion:*:*:ssh:*:my-accounts' users-hosts \
+  '[[ -f ~/.ssh/config && $key = hosts ]] && key=my_hosts reply=()'
+
 # quick changed directories /grml
 rationalise-dot() {
   if [[ $LBUFFER = *.. ]]; then
