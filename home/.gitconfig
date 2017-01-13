@@ -10,7 +10,7 @@
 
 	cp = cherry-pick -x
 
-	l = log --graph --date=default
+	l = log --graph --date=default --format=fuller
 	changes = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status
 	short = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\"
 	simple = log --pretty=format:\" * %s\"
