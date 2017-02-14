@@ -62,9 +62,9 @@ else
 endif
 
 " code formatting
-"Plug 'google/vim-maktaba'
-"Plug 'google/vim-codefmt'
-"Plug 'google/vim-glaive'
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
+Plug 'google/vim-glaive'
 
 " language-specific
 Plug 'rhysd/vim-clang-format' " C++
@@ -77,13 +77,13 @@ Plug 'davidhalter/jedi-vim'   " Python
 
 call plug#end()
 
-"if has('nvim')
+if has('nvim')
   let g:deoplete#enable_at_startup = 1
   inoremap <silent><expr> <Tab>
               \ pumvisible() ? "\<C-n>" : "<Tab>"
   let g:deoplete#sources#clang#libclang_path = "/usr/local/Cellar/llvm/3.9.1/lib/libclang.dylib"
   let g:deoplete#sources#clang#clang_header = "/usr/local/Cellar/llvm/3.9.1/lib/clang/3.9.1/"
-"endif
+endif
 
 " Auto-install remaining plugins. FIXME: bad plugin check
 if !isdirectory(expand("~/.vim/plugged/vim-fugitive"))
@@ -212,22 +212,22 @@ let g:airline_theme='murmur'
 
 "clang-format
 " map to <leader>cf in C++ code
-autocmd FileType c,cpp,objc nnoremap <buffer><leader>cf :<C-u>ClangFormat<CR>
-autocmd FileType c,cpp,objc vnoremap <buffer><leader>cf :ClangFormat<CR>
+"autocmd FileType c,cpp,objc nnoremap <buffer><leader>cf :<C-u>ClangFormat<CR>
+"autocmd FileType c,cpp,objc vnoremap <buffer><leader>cf :ClangFormat<CR>
 " if you install vim-operator-user
-autocmd FileType c,cpp,objc map <buffer><leader>x <Plug>(operator-clang-format)
+"autocmd FileType c,cpp,objc map <buffer><leader>x <Plug>(operator-clang-format)
 " Toggle auto formatting:
-nmap <leader>C :ClangFormatAutoToggle<CR>
+"nmap <leader>C :ClangFormatAutoToggle<CR>
 
 "ctrlp
 map <c-p> :FZF ..<CR>
 
 "google-codefmt
-"call glaive#Install()
-"Glaive codefmt plugin[mappings]
+call glaive#Install()
+Glaive codefmt plugin[mappings]
 " map to <leader>cf in C++ code
-autocmd FileType c,cpp,objc nnoremap <buffer><leader>fc :<C-u>FormatCode<CR>
-autocmd FileType c,cpp,objc vnoremap <buffer><leader>fc :FormatCode<CR>
+autocmd FileType c,cpp,objc nnoremap <buffer><leader>cf :<C-u>FormatCode<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><leader>cf :FormatCode<CR>
 " Enable auto formatting:
 nmap <leader>gcf :AutoFormatBuffer<CR>
 
