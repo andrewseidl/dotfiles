@@ -181,3 +181,5 @@ if [ -f ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
 then
     source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

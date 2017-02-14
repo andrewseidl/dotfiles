@@ -19,6 +19,13 @@ if [[ ! -e $ZSHP ]] ; then
     git clone git://github.com/olivierverdier/zsh-git-prompt.git $ZSHP
 fi
 
+# install fzf
+ZSHP=$HOME/.fzf
+if [[ ! -e $ZSHP ]] ; then
+    git clone --depth 1 https://github.com/junegunn/fzf.git $ZSHP
+    $ZSHP/install
+fi
+
 # clone dotfiles if they don't exist
 if [[ ! -e "$DFDIR" ]] ; then
     git clone git://github.com/andrewseidl/dotfiles.git "$DFDIR"
