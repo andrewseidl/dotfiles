@@ -30,12 +30,14 @@ Plug 'ervandew/supertab'
 "Plug 'godlygeek/tabular'
 Plug 'johnsyweb/vim-makeshift'
 Plug 'jtratner/vim-flavored-markdown'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' }
 Plug 'kopischke/vim-fetch'
 Plug 'kurkale6ka/vim-pairs'
-Plug 'Lokaltog/vim-easymotion'
+"Plug 'Lokaltog/vim-easymotion'
 Plug 'luochen1990/rainbow'
 Plug 'majutsushi/tagbar'
+Plug 'mfukar/robotframework-vim'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter', { 'on': 'NERDComToggleComment' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -46,16 +48,23 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'Valloric/YouCompleteMe'
 "Plug 'vim-scripts/Conque-GDB'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+"Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+if !has('nvim')
+  Plug 'Valloric/YouCompleteMe'
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'Shougo/neoinclude.vim'
+  Plug 'zchee/deoplete-go'
+  Plug 'zchee/deoplete-clang'
+endif
 
 " code formatting
-Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt'
-Plug 'google/vim-glaive'
+"Plug 'google/vim-maktaba'
+"Plug 'google/vim-codefmt'
+"Plug 'google/vim-glaive'
 
 " language-specific
 Plug 'rhysd/vim-clang-format' " C++
@@ -67,6 +76,14 @@ Plug 'JuliaLang/julia-vim'    " Julia
 Plug 'davidhalter/jedi-vim'   " Python
 
 call plug#end()
+
+"if has('nvim')
+  let g:deoplete#enable_at_startup = 1
+  inoremap <silent><expr> <Tab>
+              \ pumvisible() ? "\<C-n>" : "<Tab>"
+  let g:deoplete#sources#clang#libclang_path = "/usr/local/Cellar/llvm/3.9.1/lib/libclang.dylib"
+  let g:deoplete#sources#clang#clang_header = "/usr/local/Cellar/llvm/3.9.1/lib/clang/3.9.1/"
+"endif
 
 " Auto-install remaining plugins. FIXME: bad plugin check
 if !isdirectory(expand("~/.vim/plugged/vim-fugitive"))
@@ -114,7 +131,11 @@ set undolevels=1000
 set undoreload=10000
 
 " Jump to the last position when reopening a file
-set viminfo='100,\"300,:200,%,n~/.viminfo
+if !has('nvim')
+  set viminfo='100,\"300,:200,%,n~/.viminfo
+else
+  set viminfo='100,\"300,:200,%,n~/.nviminfo
+endif
 function! ResCur()
   if line("'\"") <= line("$")
     normal! g`"
@@ -199,11 +220,11 @@ autocmd FileType c,cpp,objc map <buffer><leader>x <Plug>(operator-clang-format)
 nmap <leader>C :ClangFormatAutoToggle<CR>
 
 "ctrlp
-map <c-p> :CtrlP<CR>
+map <c-p> :FZF ..<CR>
 
 "google-codefmt
-call glaive#Install()
-Glaive codefmt plugin[mappings]
+"call glaive#Install()
+"Glaive codefmt plugin[mappings]
 " map to <leader>cf in C++ code
 autocmd FileType c,cpp,objc nnoremap <buffer><leader>fc :<C-u>FormatCode<CR>
 autocmd FileType c,cpp,objc vnoremap <buffer><leader>fc :FormatCode<CR>
