@@ -21,6 +21,8 @@ setopt COMPLETE_IN_WORD
 ## history
 setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY
+setopt EXTENDED_HISTORY
+setopt HIST_IGNORE_DUPS
 
 # run 'rehash' automatically
 setopt nohashdirs
