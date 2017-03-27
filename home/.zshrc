@@ -32,7 +32,7 @@ HISTFILE=~/.history
 SAVEHIST=20000
 
 ## never ever beep ever
-#setopt NO_BEEP
+setopt NO_BEEP
 
 ## automatically decide when to page a list of completions
 LISTMAX=0
