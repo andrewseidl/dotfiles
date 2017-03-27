@@ -39,6 +39,8 @@ Plug 'luochen1990/rainbow'
 Plug 'lyuts/vim-rtags'
 Plug 'majutsushi/tagbar'
 Plug 'mfukar/robotframework-vim'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'Raimondi/delimitMate'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter', { 'on': 'NERDComToggleComment' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -287,6 +289,9 @@ vmap <leader>a: :Tabularize /:\zs<CR>
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+"vim-better-whitespace
+let g:better_whitespace_filetypes_blacklist=['diff']
 
 "vim-flavored-markdown
 augroup markdown
