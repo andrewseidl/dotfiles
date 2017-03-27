@@ -92,6 +92,7 @@ alias vi="echo No."
 #if hash nvim 2>/dev/null; then
 #    alias vim=nvim
 #fi
+export EDITOR=vim
 
 # misc
 alias sudo='sudo "PATH=$PATH" -E'
