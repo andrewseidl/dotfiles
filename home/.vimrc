@@ -36,6 +36,7 @@ Plug 'kopischke/vim-fetch'
 Plug 'kurkale6ka/vim-pairs'
 "Plug 'Lokaltog/vim-easymotion'
 Plug 'luochen1990/rainbow'
+Plug 'lyuts/vim-rtags'
 Plug 'majutsushi/tagbar'
 Plug 'mfukar/robotframework-vim'
 Plug 'rking/ag.vim'
@@ -225,9 +226,8 @@ map <c-p> :FZF ..<CR>
 "google-codefmt
 call glaive#Install()
 Glaive codefmt plugin[mappings]
-" map to <leader>cf in C++ code
-autocmd FileType c,cpp,objc nnoremap <buffer><leader>cf :<C-u>FormatCode<CR>
-autocmd FileType c,cpp,objc vnoremap <buffer><leader>cf :FormatCode<CR>
+autocmd FileType c,cpp,objc,java,javascript,python,html,css,json nnoremap <buffer><leader>cf :<C-u>FormatCode<CR>
+autocmd FileType c,cpp,objc,java,javascript,python,html,css,json vnoremap <buffer><leader>cf :FormatCode<CR>
 " Enable auto formatting:
 nmap <leader>gcf :AutoFormatBuffer<CR>
 
