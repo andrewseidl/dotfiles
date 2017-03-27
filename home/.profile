@@ -15,7 +15,7 @@ if [ -f ~/.gcloud/google-cloud-sdk ] ; then
 fi
 
 # added by travis gem
-[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
+[ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
 
 # colorize ls 
 if [ "$(uname)" = 'Darwin' ] ; then
@@ -80,7 +80,7 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # stolen from https://coderwall.com/p/powgbg
 # FIXME: potential issue with FreeBSD
-function ssht() {
+ssht() {
     ssh $* -t 'tmux a || tmux || /bin/zsh || /bin/bash'
 }
 
