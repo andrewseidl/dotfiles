@@ -10,6 +10,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Layout.Fullscreen
+import XMonad.Layout.Decoration
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spiral
 import XMonad.Layout.Tabbed
@@ -26,7 +27,7 @@ import qualified Data.Map        as M
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal = "/usr/bin/urxvt"
+myTerminal = "/usr/bin/xfce4-terminal"
 
 
 ------------------------------------------------------------------------
@@ -94,7 +95,7 @@ myNormalBorderColor  = "#7c7c7c"
 myFocusedBorderColor = "#ffb6b0"
 
 -- Colors for text and backgrounds of each tab when in "Tabbed" layout.
-tabConfig = defaultTheme {
+tabConfig = def {
     activeBorderColor = "#7C7C7C",
     activeTextColor = "#CEFFAC",
     activeColor = "#000000",
@@ -134,7 +135,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
   -- Lock the screen using xscreensaver.
   , ((modMask .|. controlMask, xK_l),
-     spawn "gnome-screensaver-command -lock")
+     spawn "i3lock -c 000000")
 
   -- Launch dmenu via yeganesh.
   -- Use this to launch programs without a key binding.
@@ -337,6 +338,7 @@ main = do
           , ppTitle = xmobarColor xmobarTitleColor "" . shorten 100
           , ppCurrent = xmobarColor xmobarCurrentWorkspaceColor ""
           , ppSep = "   "}
+      , handleEventHook = docksEventHook
       , manageHook = manageDocks <+> myManageHook
       , startupHook = setWMName "LG3D"
   }
@@ -350,7 +352,7 @@ main = do
 --
 -- No need to modify this.
 --
-defaults = defaultConfig {
+defaults = def {
     -- simple stuff
     terminal           = myTerminal,
     focusFollowsMouse  = myFocusFollowsMouse,
