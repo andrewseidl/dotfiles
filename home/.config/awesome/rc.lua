@@ -8,8 +8,11 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
-local menubar = require("menubar")
+local menubar = require("mymenubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
+local vicious = require("vicious")
+local beautiful = require("beautiful")
+local wwidgets = require("wwidgets")
 -- Enable VIM help for hotkeys widget when client with matching name is opened:
 require("awful.hotkeys_popup.keys.vim")
 
@@ -40,10 +43,10 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(awful.util.get_themes_dir() .. "default/theme.lua")
+beautiful.init(awful.util.getdir("config") .. "/themes/default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "gnome-terminal"
+terminal = "xfce4-terminal"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -56,7 +59,6 @@ modkey = "Mod1"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
@@ -112,12 +114,35 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
+-- {{{ Widgets
+widget_bg_toggle = 1
+function widget_background()
+    widget_bg_toggle = (widget_bg_toggle + 1) % 2
+    return beautiful.widget_bg[widget_bg_toggle]
+end
+
 -- Keyboard map indicator and switcher
 mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
+
+cpuwidget = wibox.widget.graph()
+    cpuwidget:set_width(200)
+    cpuwidget:set_color(gears.color.create_solid_pattern("#00ff00"))
+    vicious.cache(vicious.widgets.cpu)
+    cpuwidget.opacity = "1"
+    vicious.register(cpuwidget, vicious.widgets.cpu, "$1", 5)
+
+-- No battery widget for desktop computers
+batterywidget = {}
+if awful.util.file_readable("/sys/class/power_supply/BAT0/present") then
+    batterywidget = wwidgets.batterywidget({
+        color_bg = widget_background(),
+        color_low = "#ff0000"
+    })
+end
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -208,17 +233,21 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            mylauncher,
+            s.mylayoutbox,
             s.mytaglist,
             s.mypromptbox,
         },
-        s.mytasklist, -- Middle widget
+        {
+            layout = wibox.layout.align.horizontal,
+            nil,
+            wibox.widget.systray(),
+            nil,
+        },
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
-            wibox.widget.systray(),
+            cpuwidget,
+            batterywidget.widget,
             mytextclock,
-            s.mylayoutbox,
         },
     }
 end)
@@ -281,7 +310,7 @@ globalkeys = gears.table.join(
     -- Standard program
     awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
-    awful.key({ modkey, "Control" }, "r", awesome.restart,
+    awful.key({ modkey,           }, "q", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
@@ -330,7 +359,16 @@ globalkeys = gears.table.join(
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
+              {description = "show the menubar", group = "launcher"}),
+
+    -- volume
+    awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("xbacklight -dec 3") end),
+    awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("xbacklight -inc 3") end),
+    awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn("pamixer -d 5") end),
+    awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn("pamixer -i 5") end),
+    awful.key({ }, "XF86AudioMute", function () awful.util.spawn("pamixer -t") end),
+
+    awful.key({ }, "Print", function () awful.util.spawn("scrot -m ~/screenshots/screenshot-%Y%m%d-%H%M%S.png") end)
 )
 
 clientkeys = gears.table.join(
@@ -342,14 +380,14 @@ clientkeys = gears.table.join(
         {description = "toggle fullscreen", group = "client"}),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
+    awful.key({ modkey,           }, "t",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
+    awful.key({ modkey,           }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
     awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
               {description = "move to screen", group = "client"}),
-    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
-              {description = "toggle keep on top", group = "client"}),
+    --awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
+    --          {description = "toggle keep on top", group = "client"}),
     awful.key({ modkey,           }, "n",
         function (c)
             -- The client currently has the input focus, so it cannot be
@@ -441,7 +479,8 @@ root.keys(globalkeys)
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
-      properties = { border_width = beautiful.border_width,
+      properties = { size_hints_honor = false,
+                     border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
                      raise = true,
@@ -480,7 +519,7 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
+      }, properties = { titlebars_enabled = false }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
