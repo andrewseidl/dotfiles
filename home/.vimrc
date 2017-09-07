@@ -56,7 +56,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 if !has('nvim')
-  Plug 'Valloric/YouCompleteMe'
+"  Plug 'Valloric/YouCompleteMe'
 else
   Plug 'Shougo/deoplete.nvim'
   Plug 'Shougo/neoinclude.vim'
