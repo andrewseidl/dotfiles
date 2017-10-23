@@ -2,15 +2,24 @@ URxvt*.background: Black
 URxvt*.foreground: White
 URxvt*.scrollBar: false
 
-URxvt*.font:        xft:Fixed-8
-URxvt*.boldFont:    xft:Fixed-8
+URxvt*.font:        xft:monoco:size=8
+URxvt*.boldFont:    xft:monoco:size=8
+URxvt.letterSpace: -7
 
-!!URxvt*.font:        Xft:droid sans mono:medium
-!!URxvt*.boldFont:    Xft:droid sans mono:medium
+!URxvt*.font:        Xft:droid sans mono:medium
+!URxvt*.boldFont:    Xft:droid sans mono:medium
 
 URxvt*.saveLines: 65535
 
 URxvt*color4: RoyalBlue
 URxvt*color12: RoyalBlue
 
-Xcursor.size: 8
+!Xcursor.size: 8
+
+Xft.dpi: 180
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb

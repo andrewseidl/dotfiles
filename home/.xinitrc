@@ -18,7 +18,16 @@ fi
 
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 xsetroot -cursor_name left_ptr &
-xcompmgr &
+#xcompmgr &
+libinput-gestures &
 hsetroot -solid #000000
-exec xmonad
+#exec xmonad
 #exec i3
+#exec gnome-session
+#compton -b
+
+#xrandr --setprovideroutputsource modesetting NVIDIA-0
+#xrandr --auto
+
+exec awesome
+#exec gnome-session
