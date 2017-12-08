@@ -71,6 +71,7 @@ Plug 'google/vim-glaive'
 
 " language-specific
 Plug 'rhysd/vim-clang-format' " C++
+Plug 'libclang-vim/clang-type-inspector.vim' | Plug 'rhysd/libclang-vim', { 'for': ['cpp'] }
 Plug 'fatih/vim-go'           " Go
 Plug 'eagletmt/ghcmod-vim'    " Haskell
 Plug 'eagletmt/neco-ghc'      " Haskell
