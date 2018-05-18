@@ -57,10 +57,10 @@ if ! hash clang-format 2>/dev/null; then
     fi
 fi
 
-# ruby and gems
-if hash ruby 2>/dev/null && hash gem 2>/dev/null; then
-    PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
-fi
+#### ruby and gems
+###if hash ruby 2>/dev/null && hash gem 2>/dev/null; then
+###    PATH="$(ruby -rubygems -e 'puts Gem.user_dir')/bin:$PATH"
+###fi
 
 # dircolors
 if [ -f ~/.dir_colors ] ; then
@@ -95,7 +95,7 @@ alias vi="echo No."
 export EDITOR=vim
 
 # misc
-alias sudo='sudo "PATH=$PATH" -E'
+alias sudo='sudo "PATH=$PATH"'
 
 # create a temporary dir and cd to it
 alias cdtemp='cd $(mktemp -d /tmp/tmpd.$(date +%s).XXX)'
