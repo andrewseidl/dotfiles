@@ -64,6 +64,21 @@ else
   Plug 'zchee/deoplete-clang'
 endif
 
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
+let g:LanguageClient_serverCommands = {
+  \ 'cpp': ['clangd'],
+  \ }
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
 " code formatting
 Plug 'google/vim-maktaba'
 Plug 'google/vim-codefmt'
@@ -303,9 +318,9 @@ augroup END
 "vim-go
 let g:go_fmt_command = "goimports"
 
-"YouCompleteMe
-let g:ycm_confirm_extra_conf = 0
-nnoremap <leader>jd :YcmCompleter GoTo<CR>
+""""YouCompleteMe
+"""let g:ycm_confirm_extra_conf = 0
+"""nnoremap <leader>jd :YcmCompleter GoTo<CR>
 
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -316,3 +331,6 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+let g:clang_rename_path = "clang-rename"
+noremap <leader>cr :pyf /usr/share/clang/clang-rename.py<CR>
