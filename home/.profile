@@ -17,7 +17,7 @@ fi
 # added by travis gem
 [ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
 
-# colorize ls 
+# colorize ls
 if [ "$(uname)" = 'Darwin' ] ; then
     alias ls="ls -G"
     export PATH=$(brew --prefix ruby)/bin:$PATH
@@ -68,7 +68,7 @@ if [ -f ~/.dir_colors ] ; then
 	eval $(dircolors ~/.dir_colors)
     elif hash gdircolors 2>/dev/null; then
 	eval $(gdircolors ~/.dir_colors)
-    fi  
+    fi
 fi
 
 # cabal
@@ -93,6 +93,8 @@ alias vi="echo No."
 #    alias vim=nvim
 #fi
 export EDITOR=vim
+
+export CMAKE_GENERATOR=Ninja
 
 # misc
 alias sudo='sudo "PATH=$PATH"'
