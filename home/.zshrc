@@ -189,7 +189,7 @@ fi
 # Stolen from https://gist.github.com/fl0w/07ce79bd44788f647deab307c94d6922#gistcomment-2650045
 # Add every binary that requires nvm, npm or node to run to an array of node globals
 export NVM_DIR=~/.nvm
-NODE_GLOBALS=(`find ${NVM_DIR}/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq`)
+[ -d "${NVM_DIR}/versions/node" ] && NODE_GLOBALS=(`find ${NVM_DIR}/versions/node -maxdepth 3 -type l -wholename '*/bin/*' | xargs -n1 basename | sort | uniq`)
 NODE_GLOBALS+=("node")
 NODE_GLOBALS+=("nvm")
 
