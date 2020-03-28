@@ -370,7 +370,8 @@ globalkeys = gears.table.join(
     awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn("pamixer -i 5") end),
     awful.key({ }, "XF86AudioMute", function () awful.util.spawn("pamixer -t") end),
 
-    awful.key({ }, "Print", function () awful.util.spawn("scrot -m ~/screenshots/screenshot-%Y%m%d-%H%M%S.png") end)
+    awful.key({ }, "Print", function () awful.util.spawn("scrot -z -m /home/andrew/Pictures/Screenshots/screenshot-%Y%m%d-%H%M%S.png") end),
+    awful.key({ modkey }, "Print", function () awful.util.spawn("scrot -s -z -m /home/andrew/Pictures/Screenshots/screenshot-%Y%m%d-%H%M%S.png") end)
 )
 
 clientkeys = gears.table.join(
