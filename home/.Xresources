@@ -16,7 +16,7 @@ URxvt*color12: RoyalBlue
 
 !Xcursor.size: 8
 
-Xft.dpi: 180
+Xft.dpi: 160
 Xft.autohint: 0
 Xft.lcdfilter: lcddefault
 Xft.hintstyle: hintfull
