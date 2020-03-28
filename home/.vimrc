@@ -10,15 +10,20 @@ set encoding=utf-8
 syntax on
 filetype off
 
+if !has('nvim')
+  let vimconfig = '~/.vim'
+else
+  let vimconfig = '~/.local/share/nvim'
+endif
 
 "" plugins
 
 " Auto-install vim-plug
-if empty(glob('~/.vim/autoload/plug.vim'))
-  call system("curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim")
+if empty(glob(vimconfig . '/autoload/plug.vim'))
+  call system("curl -fLo " . vimconfig . "/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim")
 endif
 
-call plug#begin('~/.vim/plugged')
+call plug#begin(vimconfig . "/plugged")
 
 " let Vundle manage Vundle
 Plug 'gmarik/Vundle.vim'
@@ -26,7 +31,7 @@ Plug 'gmarik/Vundle.vim'
 " original repos on github
 Plug 'airblade/vim-gitgutter'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'ervandew/supertab'
+"Plug 'ervandew/supertab'
 "Plug 'godlygeek/tabular'
 Plug 'johnsyweb/vim-makeshift'
 Plug 'jtratner/vim-flavored-markdown'
@@ -34,13 +39,12 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' }
 Plug 'kopischke/vim-fetch'
 Plug 'kurkale6ka/vim-pairs'
-"Plug 'Lokaltog/vim-easymotion'
+Plug 'easymotion/vim-easymotion'
 Plug 'luochen1990/rainbow'
-Plug 'lyuts/vim-rtags'
+"Plug 'lyuts/vim-rtags'
 Plug 'majutsushi/tagbar'
-Plug 'mfukar/robotframework-vim'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'Raimondi/delimitMate'
+Plug 'cohama/lexima.vim'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter', { 'on': 'NERDComToggleComment' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -51,33 +55,11 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-"Plug 'vim-scripts/Conque-GDB'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-"Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-if !has('nvim')
-"  Plug 'Valloric/YouCompleteMe'
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'Shougo/neoinclude.vim'
-  Plug 'zchee/deoplete-go'
-  Plug 'zchee/deoplete-clang'
+if has('nvim')
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
-
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-
-let g:LanguageClient_serverCommands = {
-  \ 'cpp': ['clangd'],
-  \ }
-
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 " code formatting
 Plug 'google/vim-maktaba'
@@ -86,7 +68,7 @@ Plug 'google/vim-glaive'
 
 " language-specific
 Plug 'rhysd/vim-clang-format' " C++
-Plug 'libclang-vim/clang-type-inspector.vim' | Plug 'rhysd/libclang-vim', { 'for': ['cpp'] }
+"Plug 'libclang-vim/clang-type-inspector.vim' | Plug 'rhysd/libclang-vim', { 'for': ['cpp'] }
 Plug 'fatih/vim-go'           " Go
 Plug 'eagletmt/ghcmod-vim'    " Haskell
 Plug 'eagletmt/neco-ghc'      " Haskell
@@ -100,17 +82,153 @@ if has('nvim')
   let g:deoplete#enable_at_startup = 1
   inoremap <silent><expr> <Tab>
               \ pumvisible() ? "\<C-n>" : "<Tab>"
-  let g:deoplete#sources#clang#libclang_path = "/usr/local/Cellar/llvm/3.9.1/lib/libclang.dylib"
-  let g:deoplete#sources#clang#clang_header = "/usr/local/Cellar/llvm/3.9.1/lib/clang/3.9.1/"
 endif
 
 " Auto-install remaining plugins. FIXME: bad plugin check
-if !isdirectory(expand("~/.vim/plugged/vim-fugitive"))
+if !isdirectory(expand(vimconfig . '/plugged/vim-fugitive'))
   execute 'silent PlugInstall'
   execute 'silent q'
 endif
 
 filetype plugin indent on
+
+
+
+""" coc
+
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Or use `complete_info` if your vim support it, like:
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+nmap <silent> <C-d> <Plug>(coc-range-select)
+xmap <silent> <C-d> <Plug>(coc-range-select)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Using CocList
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+
+
+""" coc
+
 
 
 "" options
@@ -317,20 +435,6 @@ augroup END
 
 "vim-go
 let g:go_fmt_command = "goimports"
-
-""""YouCompleteMe
-"""let g:ycm_confirm_extra_conf = 0
-"""nnoremap <leader>jd :YcmCompleter GoTo<CR>
-
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 let g:clang_rename_path = "clang-rename"
 noremap <leader>cr :pyf /usr/share/clang/clang-rename.py<CR>
