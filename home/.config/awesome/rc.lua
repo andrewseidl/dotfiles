@@ -364,8 +364,8 @@ globalkeys = gears.table.join(
               {description = "show the menubar", group = "launcher"}),
 
     -- volume
-    awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("xbacklight -dec 3") end),
-    awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("xbacklight -inc 3") end),
+    awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("/home/andrew/bin/bright -") end),
+    awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("/home/andrew/bin/bright +") end),
     awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn("pamixer -d 5") end),
     awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn("pamixer -i 5") end),
     awful.key({ }, "XF86AudioMute", function () awful.util.spawn("pamixer -t") end),
