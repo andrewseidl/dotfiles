@@ -367,8 +367,8 @@ map <c-p> :FZF ..<CR>
 "google-codefmt
 call glaive#Install()
 Glaive codefmt plugin[mappings]
-autocmd FileType c,cpp,objc,java,javascript,python,html,css,json nnoremap <buffer><leader>cf :<C-u>FormatCode<CR>
-autocmd FileType c,cpp,objc,java,javascript,python,html,css,json vnoremap <buffer><leader>cf :FormatCode<CR>
+autocmd FileType c,cpp,objc,java,javascript,python,html,css,json,rust nnoremap <buffer><leader>cf :<C-u>FormatCode<CR>
+autocmd FileType c,cpp,objc,java,javascript,python,html,css,json,rust vnoremap <buffer><leader>cf :FormatCode<CR>
 " Enable auto formatting:
 nmap <leader>gcf :AutoFormatBuffer<CR>
 
