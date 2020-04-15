@@ -57,9 +57,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-if has('nvim')
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-endif
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " code formatting
 Plug 'google/vim-maktaba'
@@ -78,12 +76,6 @@ Plug 'davidhalter/jedi-vim'   " Python
 
 call plug#end()
 
-if has('nvim')
-  let g:deoplete#enable_at_startup = 1
-  inoremap <silent><expr> <Tab>
-              \ pumvisible() ? "\<C-n>" : "<Tab>"
-endif
-
 " Auto-install remaining plugins. FIXME: bad plugin check
 if !isdirectory(expand(vimconfig . '/plugged/vim-fugitive'))
   execute 'silent PlugInstall'
@@ -91,7 +83,6 @@ if !isdirectory(expand(vimconfig . '/plugged/vim-fugitive'))
 endif
 
 filetype plugin indent on
-
 
 
 """ coc
@@ -102,9 +93,6 @@ set hidden
 " Some servers have issues with backup files, see #649
 set nobackup
 set nowritebackup
-
-" Better display for messages
-set cmdheight=2
 
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
@@ -224,11 +212,7 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
-
-
 """ coc
-
 
 
 "" options
@@ -257,6 +241,7 @@ set wildmenu
 "colors
 set fillchars=vert:│,fold:-
 highlight VertSplit cterm=none ctermbg=none ctermfg=247
+highlight CocFloating ctermfg=gray guifg=gray
 
 " undo
 if !isdirectory(expand("~/.vim/undo"))
