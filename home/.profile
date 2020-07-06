@@ -96,6 +96,8 @@ export EDITOR=vim
 
 export CMAKE_GENERATOR=Ninja
 
+export VCPKG_DISABLE_METRICS=1
+
 # misc
 alias sudo='sudo "PATH=$PATH"'
 
