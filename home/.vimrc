@@ -83,7 +83,14 @@ Plug 'Shougo/vimproc'         " Haskell, for ghcmod
 Plug 'JuliaLang/julia-vim'    " Julia
 Plug 'davidhalter/jedi-vim'   " Python
 
+Plug 'github/copilot.vim'
+Plug 'szw/vim-maximizer'
+
 call plug#end()
+
+nnoremap <silent><F3> :MaximizerToggle<CR>
+vnoremap <silent><F3> :MaximizerToggle<CR>gv
+inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
 
 " Auto-install remaining plugins. FIXME: bad plugin check
 if !isdirectory(expand(vimconfig . '/plugged/vim-fugitive'))

@@ -14,12 +14,12 @@ URxvt*.saveLines: 65535
 URxvt*color4: RoyalBlue
 URxvt*color12: RoyalBlue
 
-!Xcursor.size: 8
+Xcursor.size: 10
 
-Xft.dpi: 160
+Xft.dpi: 120
 Xft.autohint: 0
 Xft.lcdfilter: lcddefault
-Xft.hintstyle: hintfull
-Xft.hinting: 1
+Xft.hintstyle: hintslight
+Xft.hinting: 0
 Xft.antialias: 1
 Xft.rgba: rgb

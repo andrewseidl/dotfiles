@@ -21,7 +21,7 @@ xsetroot -cursor_name left_ptr &
 #xcompmgr &
 libinput-gestures &
 hsetroot -solid #000000
-xscreensaver &
+xscreensaver --no-splash &
 #exec xmonad
 #exec i3
 #exec gnome-session

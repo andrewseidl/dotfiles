@@ -944,3 +944,4 @@ client.connect_signal(
 -- }}}
 
 awful.spawn.single_instance("nm-applet")
+awful.spawn.single_instance("barriers")
