@@ -10,13 +10,13 @@ fi
 # install syntax highlighting for zsh
 ZSHL=$HOME/.zsh/plugins/zsh-syntax-highlighting
 if [[ ! -e $ZSHL ]] ; then
-    git clone git://github.com/zsh-users/zsh-syntax-highlighting.git $ZSHL
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSHL
 fi
 
 # install syntax highlighting for zsh
 ZSHP=$HOME/.zsh/plugins/zsh-git-prompt
 if [[ ! -e $ZSHP ]] ; then
-    git clone git://github.com/olivierverdier/zsh-git-prompt.git $ZSHP
+    git clone https://github.com/olivierverdier/zsh-git-prompt.git $ZSHP
 fi
 
 # install fzf
@@ -28,7 +28,7 @@ fi
 
 # clone dotfiles if they don't exist
 if [[ ! -e "$DFDIR" ]] ; then
-    git clone git://github.com/andrewseidl/dotfiles.git "$DFDIR"
+    git clone https://github.com/andrewseidl/dotfiles.git "$DFDIR"
 fi
 
 # enter dotfiles dir
