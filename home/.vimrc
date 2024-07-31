@@ -29,34 +29,11 @@ call plug#begin(vimconfig . "/plugged")
 Plug 'gmarik/Vundle.vim'
 
 " original repos on github
-Plug 'airblade/vim-gitgutter'
-Plug 'christoomey/vim-tmux-navigator'
-"Plug 'ervandew/supertab'
-"Plug 'godlygeek/tabular'
-Plug 'johnsyweb/vim-makeshift'
-Plug 'jtratner/vim-flavored-markdown'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'kien/ctrlp.vim', { 'on': 'CtrlP' }
-Plug 'kopischke/vim-fetch'
-Plug 'kurkale6ka/vim-pairs'
-Plug 'easymotion/vim-easymotion'
-Plug 'luochen1990/rainbow'
-"Plug 'lyuts/vim-rtags'
-Plug 'majutsushi/tagbar'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'cohama/lexima.vim'
-Plug 'rking/ag.vim'
-Plug 'scrooloose/nerdcommenter', { 'on': 'NERDComToggleComment' }
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'scrooloose/syntastic'
-Plug 'terryma/vim-expand-region'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+"""Plug 'cohama/lexima.vim'
+""Plug 'scrooloose/nerdcommenter', { 'on': 'NERDComToggleComment' }
+""Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
 " coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -83,7 +60,6 @@ Plug 'Shougo/vimproc'         " Haskell, for ghcmod
 Plug 'JuliaLang/julia-vim'    " Julia
 Plug 'davidhalter/jedi-vim'   " Python
 
-Plug 'github/copilot.vim'
 Plug 'szw/vim-maximizer'
 
 call plug#end()
@@ -92,13 +68,6 @@ nnoremap <silent><F3> :MaximizerToggle<CR>
 vnoremap <silent><F3> :MaximizerToggle<CR>gv
 inoremap <silent><F3> <C-o>:MaximizerToggle<CR>
 
-" Auto-install remaining plugins. FIXME: bad plugin check
-if !isdirectory(expand(vimconfig . '/plugged/vim-fugitive'))
-  execute 'silent PlugInstall'
-  execute 'silent q'
-endif
-
-filetype plugin indent on
 
 
 """ coc
@@ -233,80 +202,31 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 "" options
 
-set autoindent
-set autoread
-set background=dark
-set backspace=2
-set diffopt+=iwhite
-set history=50
-set hlsearch
-set ignorecase
-set incsearch
-set laststatus=2
-set nolazyredraw
-set ttyfast
-set number
-set scrolloff=5
-set showcmd
-set showfulltag
-set showmatch
-" set textwidth=80
-set virtualedit=all
-set wildmenu
+"""set autoindent
+"""set autoread
+"""set background=dark
+"""set backspace=2
+"""set diffopt+=iwhite
+"""set history=50
+"""set hlsearch
+"""set ignorecase
+"""set incsearch
+"""set laststatus=2
+"""set nolazyredraw
+"""set ttyfast
+"""set number
+"""set scrolloff=5
+"""set showcmd
+"""set showfulltag
+"""set showmatch
+"""" set textwidth=80
+"""set virtualedit=all
+"""set wildmenu
 
-"colors
-set fillchars=vert:│,fold:-
-highlight VertSplit cterm=none ctermbg=none ctermfg=247
-highlight CocFloating ctermfg=gray guifg=gray
 
-" undo
-if !isdirectory(expand("~/.vim/undo"))
-  call system("mkdir -p ~/.vim/undo")
-endif
-set undofile
-set undodir=~/.vim/undo
-set undolevels=1000
-set undoreload=10000
 
-" Jump to the last position when reopening a file
-if !has('nvim')
-  set viminfo='100,\"300,:200,%,n~/.viminfo
-else
-  set viminfo='100,\"300,:200,%,n~/.nviminfo
-endif
-function! ResCur()
-  if line("'\"") <= line("$")
-    normal! g`"
-    return 1
-  endif
-endfunction
 
-augroup resCur
-  autocmd!
-  autocmd BufWinEnter * call ResCur()
-augroup END
 
-" because we have standards -jonplussed
-"set textwidth=79
-
-" these may get overridden by tpope/vim-sleuth
-set expandtab
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-
-"" key bindings
-let mapleader = " "
-nmap <space> <leader>
-
-" clear highlights
-nmap <silent> <leader>/ :nohlsearch<CR>
-
-" toggle wrapping
-nmap <leader>w :set wrap!<CR>
-
-" save with sudo if regular user
-cmap w!! w !sudo tee > /dev/null %
 
 " up/down by visual line, not actual line
 nnoremap j gj

@@ -614,14 +614,16 @@ globalkeys =
     {},
     "Print",
     function()
-      awful.util.spawn("scrot -z -m /home/andrew/Pictures/Screenshots/screenshot-%Y%m%d-%H%M%S.png")
+      --awful.util.spawn("scrot -z -m /home/andrew/Pictures/Screenshots/screenshot-%Y%m%d-%H%M%S.png")
+      awful.util.spawn("flameshot gui --clipboard --path /home/andrew/Pictures/Screenshots")
     end
   ),
   awful.key(
     {modkey},
     "Print",
     function()
-      awful.util.spawn("scrot -s -z -m /home/andrew/Pictures/Screenshots/screenshot-%Y%m%d-%H%M%S.png")
+      --awful.util.spawn("scrot -s -z -m /home/andrew/Pictures/Screenshots/screenshot-%Y%m%d-%H%M%S.png")
+      awful.util.spawn("flameshot full --clipboard --path /home/andrew/Pictures/Screenshots")
     end
   )
 )

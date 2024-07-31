@@ -106,3 +106,6 @@ alias cdtemp='cd $(mktemp -d /tmp/tmpd.$(date +%s).XXX)'
 alias cdlasttemp='cd $(ls -d /tmp/tmpd* | tail -n1)'
 
 [[ -f $HOME/.profile.local ]] && source $HOME/.profile.local
+export ESPIDF=/opt/esp-idf
+export PM_PACKAGES_ROOT=$HOME/packman-repo
+
