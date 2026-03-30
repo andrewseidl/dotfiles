@@ -1,0 +1,5 @@
+filebot -rename -r . \
+    --db TheMovieDB \
+    --format "{n} ({y}) {edition ? '{edition-' + edition + '}' : ''} [{vf} {vc} {hdr} {ac} {channels}]" \
+    --action move \
+    -non-strict
