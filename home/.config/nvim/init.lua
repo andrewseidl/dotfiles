@@ -37,8 +37,8 @@ require("lazy").setup({
   "williamboman/mason-lspconfig.nvim",
   "hrsh7th/nvim-cmp",
   "hrsh7th/cmp-nvim-lsp",
-  "L3MON4D3/LuaSnip",
-  "saadparwaiz1/cmp_luasnip",
+  --"L3MON4D3/LuaSnip",
+  --"saadparwaiz1/cmp_luasnip",
   "nvim-treesitter/nvim-treesitter",
   "nvim-treesitter/nvim-treesitter-textobjects",
   {"j-hui/fidget.nvim", tag = "legacy"},
@@ -56,6 +56,7 @@ require("lazy").setup({
   "ethanholz/nvim-lastplace",
   "rhysd/vim-clang-format",
   "madox2/vim-ai",
+  "fatih/vim-go",
   {
     "williamboman/mason.nvim",
     build = ":MasonUpdate" -- :MasonUpdate updates registry contents

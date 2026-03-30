@@ -222,3 +222,4 @@ if [ -f "/home/andrew/miniforge3/etc/profile.d/mamba.sh" ]; then
 fi
 # <<< conda initialize <<<
 
+eval "$(starship init zsh)"

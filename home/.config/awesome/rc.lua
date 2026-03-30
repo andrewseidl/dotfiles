@@ -59,7 +59,7 @@ end
 beautiful.init(awful.util.getdir("config") .. "/themes/default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "gnome-terminal"
+terminal = "ghostty"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -610,12 +610,19 @@ globalkeys =
       awful.util.spawn("pamixer -t")
     end
   ),
+  awful.key({}, "XF86AudioPlay", function () awful.spawn("playerctl play-pause") end,
+      {description = "toggle play/pause", group = "media"}),
+  awful.key({}, "XF86AudioNext", function () awful.spawn("playerctl next") end,
+      {description = "next track", group = "media"}),
+  awful.key({}, "XF86AudioPrev", function () awful.spawn("playerctl previous") end,
+      {description = "previous track", group = "media"}),
+
   awful.key(
     {},
     "Print",
     function()
       --awful.util.spawn("scrot -z -m /home/andrew/Pictures/Screenshots/screenshot-%Y%m%d-%H%M%S.png")
-      awful.util.spawn("flameshot gui --clipboard --path /home/andrew/Pictures/Screenshots")
+      awful.spawn("flameshot gui --clipboard --path /home/andrew/Pictures/Screenshots", { env = { QT_ENABLE_HIGHDPI_SCALING = "0" } })
     end
   ),
   awful.key(
@@ -623,7 +630,7 @@ globalkeys =
     "Print",
     function()
       --awful.util.spawn("scrot -s -z -m /home/andrew/Pictures/Screenshots/screenshot-%Y%m%d-%H%M%S.png")
-      awful.util.spawn("flameshot full --clipboard --path /home/andrew/Pictures/Screenshots")
+      awful.spawn("flameshot full --clipboard --path /home/andrew/Pictures/Screenshots", { env = { QT_ENABLE_HIGHDPI_SCALING = "0" } })
     end
   )
 )
