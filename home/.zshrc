@@ -223,3 +223,5 @@ fi
 # <<< conda initialize <<<
 
 eval "$(starship init zsh)"
+
+alias vim="nvim"

@@ -1,5 +1,9 @@
 .DS_Store
 *.swp
+*.svg
+*.html
+*.js
+*.css
 *~
 
 .weechat/logs/

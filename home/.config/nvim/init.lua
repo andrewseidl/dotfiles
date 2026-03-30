@@ -3,7 +3,7 @@ vim.api.nvim_exec([[
 ]], false)
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -21,52 +21,184 @@ vim.opt.encoding = "utf-8"
 vim.g.mapleader = " "
 
 require("lazy").setup({
-  --"airblade/vim-gitgutter",
-  "christoomey/vim-tmux-navigator",
-  "luochen1990/rainbow",
-  "johnsyweb/vim-makeshift",
-  "jtratner/vim-flavored-markdown",
-  "kopischke/vim-fetch",
-  "easymotion/vim-easymotion",
-  "lewis6991/gitsigns.nvim",
-  "majutsushi/tagbar",
-  "ntpeters/vim-better-whitespace",
-  "rking/ag.vim",
-  "neovim/nvim-lspconfig",
-  "williamboman/mason.nvim",
-  "williamboman/mason-lspconfig.nvim",
-  "hrsh7th/nvim-cmp",
-  "hrsh7th/cmp-nvim-lsp",
-  --"L3MON4D3/LuaSnip",
-  --"saadparwaiz1/cmp_luasnip",
-  "nvim-treesitter/nvim-treesitter",
-  "nvim-treesitter/nvim-treesitter-textobjects",
-  {"j-hui/fidget.nvim", tag = "legacy"},
-  "terryma/vim-expand-region",
-  "tpope/vim-fugitive",
+  -- Utilities & Core
   "tpope/vim-repeat",
   "tpope/vim-sleuth",
-  "tpope/vim-surround",
-  "tpope/vim-unimpaired",
-  "vim-airline/vim-airline",
-  "vim-airline/vim-airline-themes",
- -- "github/copilot.vim",
-  "szw/vim-maximizer",
-  "jose-elias-alvarez/null-ls.nvim",
-  "ethanholz/nvim-lastplace",
-  "rhysd/vim-clang-format",
-  "madox2/vim-ai",
-  "fatih/vim-go",
   {
-    "williamboman/mason.nvim",
-    build = ":MasonUpdate" -- :MasonUpdate updates registry contents
-},
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+        require("nvim-surround").setup({
+            -- Configuration here, or leave empty to use defaults
+        })
+    end
+  },
+  "tpope/vim-unimpaired",
+  "ethanholz/nvim-lastplace",
+  "szw/vim-maximizer",
+  "johnsyweb/vim-makeshift",
+  "kopischke/vim-fetch",
+  {
+    "echasnovski/mini.trailspace",
+    version = "*",
+    config = function()
+      require("mini.trailspace").setup({})
+    end
+  },
   {
     "HampusHauffman/block.nvim",
     config = function()
         require("block").setup({})
     end
-},
+  },
+
+  -- UI & Appearance
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      -- Define a completely custom, pure high-contrast theme (Black, White, and vibrant hints)
+      local colors = {
+        bg       = '#000000', -- Pure black
+        fg       = '#ffffff', -- Pure white
+        gray     = '#3a3a3a', -- Dark gray for inactive tabs
+        lightgray= '#a0a0a0', -- Light gray for inactive text
+        blue     = '#51afef',
+        green    = '#98be65',
+        orange   = '#ff9800',
+        red      = '#ec5f67',
+        magenta  = '#c678dd',
+      }
+
+      local high_contrast_theme = {
+        normal = {
+          a = { bg = colors.blue, fg = colors.bg, gui = 'bold' },
+          b = { bg = colors.gray, fg = colors.fg },
+          c = { bg = colors.bg, fg = colors.fg },
+        },
+        insert = {
+          a = { bg = colors.green, fg = colors.bg, gui = 'bold' },
+          b = { bg = colors.gray, fg = colors.fg },
+          c = { bg = colors.bg, fg = colors.fg },
+        },
+        visual = {
+          a = { bg = colors.magenta, fg = colors.bg, gui = 'bold' },
+          b = { bg = colors.gray, fg = colors.fg },
+          c = { bg = colors.bg, fg = colors.fg },
+        },
+        replace = {
+          a = { bg = colors.red, fg = colors.bg, gui = 'bold' },
+          b = { bg = colors.gray, fg = colors.fg },
+          c = { bg = colors.bg, fg = colors.fg },
+        },
+        command = {
+          a = { bg = colors.orange, fg = colors.bg, gui = 'bold' },
+          b = { bg = colors.gray, fg = colors.fg },
+          c = { bg = colors.bg, fg = colors.fg },
+        },
+        inactive = {
+          a = { bg = colors.bg, fg = colors.lightgray, gui = 'bold' },
+          b = { bg = colors.bg, fg = colors.lightgray },
+          c = { bg = colors.bg, fg = colors.lightgray },
+        },
+      }
+
+      require("lualine").setup({
+        options = {
+          theme = high_contrast_theme,
+          component_separators = { left = '│', right = '│'},
+          section_separators = { left = '', right = ''},
+        }
+      })
+    end
+  },
+  "HiPhish/rainbow-delimiters.nvim",
+  {"j-hui/fidget.nvim", tag = "legacy"},
+
+  -- Git
+  "tpope/vim-fugitive",
+  "lewis6991/gitsigns.nvim",
+  --"airblade/vim-gitgutter", -- Disabled (superseded by gitsigns)
+
+  -- Search, Navigation & UI Overrides
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    opts = {},
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  },
+  "nvim-telescope/telescope.nvim",
+  "nvim-lua/plenary.nvim",
+  {
+    "stevearc/aerial.nvim",
+    opts = {},
+    dependencies = {
+       "nvim-treesitter/nvim-treesitter",
+       "nvim-tree/nvim-web-devicons"
+    }
+  },
+  "christoomey/vim-tmux-navigator",
+
+  -- LSP, Mason & Formatting
+  {
+    "williamboman/mason.nvim",
+    build = ":MasonUpdate" -- :MasonUpdate updates registry contents
+  },
+  "williamboman/mason-lspconfig.nvim",
+  "neovim/nvim-lspconfig",
+  "nvimtools/none-ls.nvim",
+  "rhysd/vim-clang-format",
+
+  -- Autocompletion & Snippets
+  "hrsh7th/nvim-cmp",
+  "hrsh7th/cmp-nvim-lsp",
+  "L3MON4D3/LuaSnip",
+  "saadparwaiz1/cmp_luasnip",
+
+  -- Treesitter & Syntax
+  "nvim-treesitter/nvim-treesitter",
+  "nvim-treesitter/nvim-treesitter-textobjects",
+  "terryma/vim-expand-region",
+
+  -- Language Specific
+  "fatih/vim-go",
+  "jtratner/vim-flavored-markdown",
+
+  -- AI & Agentic Coding
+  "madox2/vim-ai",
+ -- "github/copilot.vim",
+  {
+    "olimorris/codecompanion.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "hrsh7th/nvim-cmp", -- Optional: For using slash commands and variables in the chat buffer
+      "nvim-telescope/telescope.nvim", -- Optional: For using slash commands
+      "stevearc/dressing.nvim" -- Optional: Improves the default Neovim UI
+    },
+    config = function()
+      require("codecompanion").setup({
+        strategies = {
+          chat = {
+            adapter = "anthropic",
+          },
+          inline = {
+            adapter = "anthropic",
+          },
+          agent = {
+            adapter = "anthropic",
+          },
+        },
+      })
+    end,
+  },
 })
 
 vim.g.vim_ai_chat = {
@@ -176,22 +308,8 @@ vim.api.nvim_set_keymap('n', '<leader>a', ':cclose<CR>', { silent = true })
 
 -- Plugins
 
--- Airline
-vim.g.airline_extensions_tabline_enabled = 0
-vim.g.airline_powerline_fonts = 0
-vim.g.airline_left_sep = ''
-vim.g.airline_right_sep = ''
-vim.g.airline_section_y = ''
-vim.g.airline_theme = 'murmur'
-
--- Rainbow Parens
-vim.g.rainbow_active = 1
-
--- Tagbar
-vim.api.nvim_set_keymap('n', '<leader>t', ':TagbarToggle<CR>', { silent = true })
-
--- vim-better-whitespace
-vim.g.better_whitespace_filetypes_blacklist = {'diff'}
+-- Aerial (Replacement for Tagbar)
+vim.api.nvim_set_keymap('n', '<leader>t', ':AerialToggle<CR>', { silent = true })
 
 -- vim-flavored-markdown
 vim.cmd([[
@@ -389,9 +507,6 @@ require('gitsigns').setup {
     relative = 'cursor',
     row = 0,
     col = 1
-  },
-  yadm = {
-    enable = false
   },
 }
 

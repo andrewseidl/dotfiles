@@ -109,3 +109,4 @@ alias cdlasttemp='cd $(ls -d /tmp/tmpd* | tail -n1)'
 export ESPIDF=/opt/esp-idf
 export PM_PACKAGES_ROOT=$HOME/packman-repo
 
+. "$HOME/.cargo/env"
