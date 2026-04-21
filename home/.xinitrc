@@ -32,3 +32,4 @@ xscreensaver --no-splash &
 
 exec awesome
 #exec gnome-session
+#exec xterm -geometry 242x86

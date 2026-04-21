@@ -76,6 +76,8 @@ fi
 
 export LC_COLLATE="en_US.UTF-8"
 
+PATH=$HOME/node_modules/.bin:$PATH
+
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # stolen from https://coderwall.com/p/powgbg

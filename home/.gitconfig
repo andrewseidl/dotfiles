@@ -23,7 +23,7 @@
 [color]
 	ui = auto
 [core]
-	editor = vim
+	editor = nvim
 	excludesfile = ~/.gitignore
 [help]
 	autocorrect = 1

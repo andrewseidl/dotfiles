@@ -60,7 +60,7 @@ beautiful.init(awful.util.getdir("config") .. "/themes/default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "ghostty"
-editor = os.getenv("EDITOR") or "vim"
+editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -952,5 +952,5 @@ client.connect_signal(
 )
 -- }}}
 
-awful.spawn.single_instance("nm-applet")
-awful.spawn.single_instance("barriers")
+--awful.spawn.single_instance("nm-applet")
+awful.spawn.with_shell("xscreensaver --no-splash")
