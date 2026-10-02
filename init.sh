@@ -1,56 +1,119 @@
 #!/usr/bin/env bash
 
+set -Eeuo pipefail
+
+PATH='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+export PATH
+
 DFDIR="$HOME/.dotfiles"
 
-# check if git is installed
-if !hash git 2>/dev/null ; then
-    echo "Please install Git and then rerun."
+has_ca_certificates() {
+    [[ -r /etc/ssl/certs/ca-certificates.crt ||
+       -r /etc/pki/tls/certs/ca-bundle.crt ||
+       -r /etc/ssl/cert.pem ]] || command -v security >/dev/null
+}
+
+install_dependencies() {
+    if git --version >/dev/null 2>&1 && curl --version >/dev/null 2>&1 && has_ca_certificates; then
+        return
+    fi
+
+    local -a privileged
+    if (( EUID == 0 )); then
+        privileged=()
+    elif command -v sudo >/dev/null; then
+        privileged=(sudo)
+    else
+        echo "Git and curl are required; rerun with sudo available." >&2
+        return 1
+    fi
+
+    if command -v apt-get >/dev/null; then
+        "${privileged[@]}" apt-get update
+        "${privileged[@]}" apt-get install --yes git curl
+        if ! has_ca_certificates; then
+            "${privileged[@]}" apt-get install --yes --reinstall ca-certificates
+        fi
+    elif command -v pacman >/dev/null; then
+        "${privileged[@]}" pacman --sync --refresh --noconfirm git curl ca-certificates
+    else
+        echo "Git and curl are required; install them and rerun." >&2
+        return 1
+    fi
+}
+
+clone_repository() {
+    local destination=$1
+    shift
+    CLONE_REPOSITORY_CREATED=0
+
+    if [[ -e $destination || -L $destination ]]; then
+        if git -C "$destination" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+            return
+        fi
+        echo "Refusing to replace existing non-Git path: $destination" >&2
+        return 1
+    fi
+
+    mkdir -p "$(dirname "$destination")"
+
+    local attempt temporary
+    for attempt in 1 2 3; do
+        temporary=$(mktemp -d "${destination}.tmp.XXXXXX")
+        if git clone "$@" "$temporary/repository"; then
+            mv "$temporary/repository" "$destination"
+            rmdir "$temporary"
+            CLONE_REPOSITORY_CREATED=1
+            return
+        fi
+        rm -rf "$temporary"
+        echo "Clone attempt $attempt/3 failed; retrying." >&2
+        sleep "$attempt"
+    done
+
+    echo "Unable to clone after 3 attempts: $*" >&2
+    return 1
+}
+
+install_dependencies
+
+ZSHL="$HOME/.zsh/plugins/zsh-syntax-highlighting"
+clone_repository "$ZSHL" https://github.com/zsh-users/zsh-syntax-highlighting.git
+
+ZSHP="$HOME/.zsh/plugins/zsh-git-prompt"
+clone_repository "$ZSHP" https://github.com/olivierverdier/zsh-git-prompt.git
+
+FZF="$HOME/.fzf"
+clone_repository "$FZF" --depth 1 https://github.com/junegunn/fzf.git
+if [[ ! -x "$FZF/bin/fzf" ]]; then
+    "$FZF/install" --all
 fi
 
-# install syntax highlighting for zsh
-ZSHL=$HOME/.zsh/plugins/zsh-syntax-highlighting
-if [[ ! -e $ZSHL ]] ; then
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSHL
+clone_repository "$DFDIR" https://github.com/andrewseidl/dotfiles.git
+
+pushd "$DFDIR" >/dev/null
+if (( ! CLONE_REPOSITORY_CREATED )); then
+    if git diff --quiet && git diff --cached --quiet; then
+        git pull --quiet --ff-only
+    else
+        git status --short
+    fi
 fi
 
-# install syntax highlighting for zsh
-ZSHP=$HOME/.zsh/plugins/zsh-git-prompt
-if [[ ! -e $ZSHP ]] ; then
-    git clone https://github.com/olivierverdier/zsh-git-prompt.git $ZSHP
-fi
-
-# install fzf
-ZSHP=$HOME/.fzf
-if [[ ! -e $ZSHP ]] ; then
-    git clone --depth 1 https://github.com/junegunn/fzf.git $ZSHP
-    $ZSHP/install
-fi
-
-# clone dotfiles if they don't exist
-if [[ ! -e "$DFDIR" ]] ; then
-    git clone https://github.com/andrewseidl/dotfiles.git "$DFDIR"
-fi
-
-# enter dotfiles dir
-pushd $PWD >/dev/null
-cd "$DFDIR"
-
-# pull updates if there are no outstanding changes
-if git diff --quiet ; then
-    git pull --quiet
-else
-    git status -s
-fi
-
-# for each dotfile, back up existing in $HOME and symlink new
-for i in $( find $PWD/home -maxdepth 1 -mindepth 1 ); do
-    HOMEFILE="$HOME/$( basename $i )"
-    if [[ -e $HOMEFILE ]] ; then
-        if [[ "$i" != "$( readlink $HOMEFILE)" ]] ; then
-            mv $HOMEFILE{,.bak-$(date +%Y%m%d)}
+while IFS= read -r -d '' dotfile; do
+    homefile="$HOME/$(basename "$dotfile")"
+    if [[ -e $homefile || -L $homefile ]]; then
+        if [[ "$dotfile" != "$(readlink "$homefile" 2>/dev/null || true)" ]]; then
+            backup="${homefile}.bak-$(date +%Y%m%d)"
+            backup_number=1
+            while [[ -e $backup || -L $backup ]]; do
+                backup="${homefile}.bak-$(date +%Y%m%d)-${backup_number}"
+                ((backup_number++))
+            done
+            mv "$homefile" "$backup"
         fi
     fi
-    ln -sf $i $HOME/
-done
+    ln -sfn "$dotfile" "$HOME/"
+done < <(find "$PWD/home" -maxdepth 1 -mindepth 1 -print0)
 
 popd >/dev/null
