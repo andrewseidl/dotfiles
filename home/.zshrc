@@ -222,6 +222,7 @@ if [ -f "/home/andrew/miniforge3/etc/profile.d/mamba.sh" ]; then
 fi
 # <<< conda initialize <<<
 
+export PATH="$HOME/.local/bin:$PATH"
 eval "$(starship init zsh)"
 
 alias vim="nvim"

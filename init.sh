@@ -42,6 +42,48 @@ install_dependencies() {
     fi
 }
 
+install_starship() {
+    local destination="$HOME/.local/bin/starship"
+    if [[ -x $destination ]]; then
+        return
+    fi
+
+    local machine target checksum
+    machine=${STARSHIP_ARCH:-$(uname -m)}
+    case "$machine" in
+        x86_64|amd64)
+            target='starship-x86_64-unknown-linux-gnu.tar.gz'
+            checksum='321f0dd7af8340a5f2e6a8fec6538a04f617486f9ec70d878f91c09cd8deef22'
+            ;;
+        aarch64|arm64)
+            target='starship-aarch64-unknown-linux-musl.tar.gz'
+            checksum='dc30189378d2f2e287384e8a692d3f95ad1df64cf0e8c36aa9201516028aed6b'
+            ;;
+        armv7l|armv6l)
+            target='starship-arm-unknown-linux-musleabihf.tar.gz'
+            checksum='c7bd93b1cfb87dd4e531d100b4f87cb77eee9eb2982d9428940bc006db4ab689'
+            ;;
+        *)
+            echo "Unsupported Starship architecture: $machine" >&2
+            return 1
+            ;;
+    esac
+
+    local temporary archive
+    temporary=$(mktemp -d)
+    archive="$temporary/$target"
+    trap 'rm -rf "$temporary"' RETURN
+    curl --fail --location --retry 3 --retry-all-errors \
+        "https://github.com/starship/starship/releases/download/v1.26.0/$target" \
+        --output "$archive"
+    printf '%s  %s\n' "$checksum" "$archive" | sha256sum --check --status
+    mkdir -p "$(dirname "$destination")"
+    tar --extract --gzip --file "$archive" --directory "$temporary"
+    install -m 0755 "$temporary/starship" "$destination"
+    trap - RETURN
+    rm -rf "$temporary"
+}
+
 clone_repository() {
     local destination=$1
     shift
@@ -76,6 +118,7 @@ clone_repository() {
 }
 
 install_dependencies
+install_starship
 
 ZSHL="$HOME/.zsh/plugins/zsh-syntax-highlighting"
 clone_repository "$ZSHL" https://github.com/zsh-users/zsh-syntax-highlighting.git

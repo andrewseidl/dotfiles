@@ -11,9 +11,11 @@ fi
 
 for image in "${images[@]}"; do
     docker run --rm \
+        --platform "${TEST_PLATFORM:-linux/amd64}" \
         --volume "$repo_root:/source:ro" \
         "$image" \
         bash -lc '
+            set -Eeuo pipefail
             export DEBIAN_FRONTEND=noninteractive
             export HOME=/home/dotfiles
             mkdir -p "$HOME" /usr/local/bin
@@ -34,6 +36,8 @@ for image in "${images[@]}"; do
             test -d "$HOME/.zsh/plugins/zsh-git-prompt/.git"
             test -x "$HOME/.fzf/bin/fzf"
             test -d "$HOME/.dotfiles/.git"
+            test -x "$HOME/.local/bin/starship"
+            "$HOME/.local/bin/starship" --version
             test -L "$HOME/.vimrc"
         '
 done
