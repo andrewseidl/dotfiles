@@ -37,7 +37,7 @@ for image in "${images[@]}"; do
             test -x "$HOME/.fzf/bin/fzf"
             test -d "$HOME/.dotfiles/.git"
             test -x "$HOME/.local/bin/starship"
-            "$HOME/.local/bin/starship" --version
+            "$HOME/.local/bin/starship" --version | grep -Fx "starship 1.26.0"
             test -L "$HOME/.vimrc"
         '
 done

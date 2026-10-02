@@ -28,5 +28,6 @@ docker run --rm \
         cp /source/init.sh "$HOME/.dotfiles/init.sh"
         STARSHIP_ARCH=aarch64 bash "$HOME/.dotfiles/init.sh"
 
-        test "$(od -An -tu1 -j 18 -N 2 "$HOME/.local/bin/starship" | tr -d " ")" = 1830
+        # ELF e_machine is the byte sequence 183, 0 for AArch64.
+        test "$(od -An -tu1 -j 18 -N 2 "$HOME/.local/bin/starship" | xargs)" = "183 0"
     '

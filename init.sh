@@ -69,19 +69,42 @@ install_starship() {
             ;;
     esac
 
-    local temporary archive
-    temporary=$(mktemp -d)
+    local temporary archive staged
+    temporary=$(mktemp -d) || {
+        echo "Unable to create a temporary directory for Starship." >&2
+        return 1
+    }
     archive="$temporary/$target"
-    trap 'rm -rf "$temporary"' RETURN
-    curl --fail --location --retry 3 --retry-all-errors \
+    staged=''
+    trap 'rm -rf "$temporary"; rm -f "$staged"' RETURN
+    if ! curl --fail --location --retry 3 --retry-all-errors \
+        --connect-timeout 10 --max-time 300 \
         "https://github.com/starship/starship/releases/download/v1.26.0/$target" \
-        --output "$archive"
-    printf '%s  %s\n' "$checksum" "$archive" | sha256sum --check --status
-    mkdir -p "$(dirname "$destination")"
-    tar --extract --gzip --file "$archive" --directory "$temporary"
-    install -m 0755 "$temporary/starship" "$destination"
-    trap - RETURN
-    rm -rf "$temporary"
+        --output "$archive"; then
+        echo "Unable to download Starship." >&2
+        return 1
+    fi
+    if ! printf '%s  %s\n' "$checksum" "$archive" | sha256sum --check --status; then
+        echo "Starship checksum verification failed." >&2
+        return 1
+    fi
+    if ! mkdir -p "$(dirname "$destination")"; then
+        echo "Unable to create the Starship installation directory." >&2
+        return 1
+    fi
+    if ! tar --extract --gzip --file "$archive" --directory "$temporary"; then
+        echo "Unable to extract Starship." >&2
+        return 1
+    fi
+    staged=$(mktemp "${destination}.tmp.XXXXXX") || {
+        echo "Unable to stage Starship for installation." >&2
+        return 1
+    }
+    if ! install -m 0755 "$temporary/starship" "$staged" || ! mv -f "$staged" "$destination"; then
+        echo "Unable to install Starship." >&2
+        return 1
+    fi
+    staged=''
 }
 
 clone_repository() {
