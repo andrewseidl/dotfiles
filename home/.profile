@@ -6,21 +6,24 @@ export GOPATH="$HOME"
 PATH="$GOPATH/bin:$PATH"
 
 # google cloud
-if [ -f ~/.gcloud/google-cloud-sdk ] ; then
-    export CLOUDSDK_PYTHON=python2
-    shell=$(echo "$0" | grep -o "[a-z]*") # hack, zsh sometimes gives -zsh
-
-    source "$HOME/.gcloud/google-cloud-sdk/path.$shell.inc"
-    source "$HOME/.gcloud/google-cloud-sdk/completion.$shell.inc"
+if [ -d "$HOME/.gcloud/google-cloud-sdk" ]; then
+    shell_name=${0#-}
+    gcloud_path="$HOME/.gcloud/google-cloud-sdk/path.$shell_name.inc"
+    gcloud_completion="$HOME/.gcloud/google-cloud-sdk/completion.$shell_name.inc"
+    [ -r "$gcloud_path" ] && . "$gcloud_path"
+    [ -r "$gcloud_completion" ] && . "$gcloud_completion"
 fi
+unset shell_name gcloud_path gcloud_completion
 
 # added by travis gem
-[ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
+[ -r "$HOME/.travis/travis.sh" ] && . "$HOME/.travis/travis.sh"
 
 # colorize ls
-if [ "$(uname)" = 'Darwin' ] ; then
+if [ "$(uname)" = 'Darwin' ]; then
     alias ls="ls -G"
-    export PATH=$(brew --prefix ruby)/bin:$PATH
+    if command -v brew >/dev/null 2>&1; then
+        export PATH="$(brew --prefix ruby)/bin:$PATH"
+    fi
 else
     alias ls="ls --color=auto"
 fi
@@ -72,7 +75,7 @@ if [ -f ~/.dir_colors ] ; then
 fi
 
 # cabal
-[[ -f $HOME/.cabal/bin ]] && PATH=$HOME/.cabal/bin:$PATH
+[ -d "$HOME/.cabal/bin" ] && PATH="$HOME/.cabal/bin:$PATH"
 
 export LC_COLLATE="en_US.UTF-8"
 
@@ -101,14 +104,16 @@ export CMAKE_GENERATOR=Ninja
 export VCPKG_DISABLE_METRICS=1
 
 # misc
-alias sudo='sudo "PATH=$PATH"'
+# Keep sudo's secure_path intact; privileged commands must not inherit user-writable PATH entries.
 
 # create a temporary dir and cd to it
 alias cdtemp='cd $(mktemp -d /tmp/tmpd.$(date +%s).XXX)'
 alias cdlasttemp='cd $(ls -d /tmp/tmpd* | tail -n1)'
 
-[[ -f $HOME/.profile.local ]] && source $HOME/.profile.local
+[ -r "$HOME/.profile.local" ] && . "$HOME/.profile.local"
 export ESPIDF=/opt/esp-idf
 export PM_PACKAGES_ROOT=$HOME/packman-repo
 
-. "$HOME/.cargo/env"
+if [ -r "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+fi

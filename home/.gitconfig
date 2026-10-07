@@ -60,7 +60,6 @@
 #	fsckobjects = true
 #[receive] 
 #	fsckObjects = true
-## required for kennethreitz/requests, itself required by ycmd
 #[fsck]
 #	badTimezone = ignore
 

@@ -62,6 +62,8 @@ beautiful.init(awful.util.getdir("config") .. "/themes/default/theme.lua")
 terminal = "ghostty"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
+home = os.getenv("HOME") or ""
+screenshot_dir = (os.getenv("XDG_PICTURES_DIR") or (home .. "/Pictures")) .. "/Screenshots"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -579,14 +581,14 @@ globalkeys =
     {},
     "XF86MonBrightnessDown",
     function()
-      awful.util.spawn("/home/andrew/bin/bright -")
+      awful.util.spawn(home .. "/bin/bright -")
     end
   ),
   awful.key(
     {},
     "XF86MonBrightnessUp",
     function()
-      awful.util.spawn("/home/andrew/bin/bright +")
+      awful.util.spawn(home .. "/bin/bright +")
     end
   ),
   awful.key(
@@ -621,16 +623,16 @@ globalkeys =
     {},
     "Print",
     function()
-      --awful.util.spawn("scrot -z -m /home/andrew/Pictures/Screenshots/screenshot-%Y%m%d-%H%M%S.png")
-      awful.spawn("flameshot gui --clipboard --path /home/andrew/Pictures/Screenshots", { env = { QT_ENABLE_HIGHDPI_SCALING = "0" } })
+      --awful.util.spawn("scrot -z -m " .. screenshot_dir .. "/screenshot-%Y%m%d-%H%M%S.png")
+      awful.spawn("flameshot gui --clipboard --path " .. screenshot_dir, { env = { QT_ENABLE_HIGHDPI_SCALING = "0" } })
     end
   ),
   awful.key(
     {modkey},
     "Print",
     function()
-      --awful.util.spawn("scrot -s -z -m /home/andrew/Pictures/Screenshots/screenshot-%Y%m%d-%H%M%S.png")
-      awful.spawn("flameshot full --clipboard --path /home/andrew/Pictures/Screenshots", { env = { QT_ENABLE_HIGHDPI_SCALING = "0" } })
+      --awful.util.spawn("scrot -s -z -m " .. screenshot_dir .. "/screenshot-%Y%m%d-%H%M%S.png")
+      awful.spawn("flameshot full --clipboard --path " .. screenshot_dir, { env = { QT_ENABLE_HIGHDPI_SCALING = "0" } })
     end
   )
 )

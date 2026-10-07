@@ -16,7 +16,7 @@ fi
 # exec startxfce4
 # ...or the Window Manager of your choice
 
-[[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
+[ -f "$HOME/.Xresources" ] && xrdb -merge "$HOME/.Xresources"
 xsetroot -cursor_name left_ptr &
 #xcompmgr &
 libinput-gestures &

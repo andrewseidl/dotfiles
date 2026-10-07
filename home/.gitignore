@@ -6,8 +6,6 @@
 *.css
 *~
 
-.weechat/logs/
-.weechat/weechat.log
 
 #haskell
 *.o
